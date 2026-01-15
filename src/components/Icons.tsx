@@ -21,7 +21,7 @@ interface LinkedInButtonProps {
   url: string;
 }
 
-export  function LinkedInButton({ url }: LinkedInButtonProps) {
+export function LinkedInButton({ url }: LinkedInButtonProps) {
   return (
     <a
       href={url}

@@ -23,7 +23,7 @@ export default function Projects({ isDark }: props) {
             "Docker",
           ]}
           image="/trip-slice.png"
-          githubUrl=""
+          githubUrl="https://github.com/UmerQureshi21/Tidier"
           isDark={isDark}
         />
         <ProjectCard
@@ -37,7 +37,7 @@ export default function Projects({ isDark }: props) {
             "Javascript",
           ]}
           image="/mac-notes.png"
-          githubUrl=""
+          githubUrl="https://github.com/UmerQureshi21/MacNotes"
           isDark={isDark}
         />
         <ProjectCard
@@ -45,7 +45,7 @@ export default function Projects({ isDark }: props) {
           description="An AI search platform for mountain bike trails using natural-language queries and real ride footage."
           technologies={["Python", "Flask", "React.js", "Gemini", "MongoDB"]}
           image="/trail-sense.png"
-          githubUrl=""
+          githubUrl="https://github.com/UmerQureshi21/trailsense"
           isDark={isDark}
         />
       </div>

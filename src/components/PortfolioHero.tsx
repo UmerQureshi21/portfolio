@@ -31,8 +31,8 @@ export default function PortfolioHero({
             2nd year Computer Science @ McMaster
           </h1>
           <div className="relative gap-[10px] flex md:flex-row flex-row md:left-[50px] w-[90%] md:w-[80%] py-[15px] justify-center md:justify-start mt-4">
-            <GitHubButton url="" />
-            <LinkedInButton url="" />
+            <GitHubButton url="https://github.com/UmerQureshi21" />
+            <LinkedInButton url="https://www.linkedin.com/in/umer-qureshi06/" />
           </div>
         </div>
         <div className="w-full md:w-[50%] flex items-center justify-center p-6 md:p-0">
