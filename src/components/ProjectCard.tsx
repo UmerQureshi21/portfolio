@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from "react";
+
 interface ProjectCardProps {
   name: string;
   description: string;
@@ -5,6 +7,7 @@ interface ProjectCardProps {
   image: string;
   githubUrl: string;
   isDark: boolean;
+  slideDirection?: "left" | "right";
 }
 
 export default function ProjectCard({
@@ -14,13 +17,36 @@ export default function ProjectCard({
   image,
   githubUrl,
   isDark,
+  slideDirection = "left",
 }: ProjectCardProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+
+      setIsVisible(isInView);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       style={{
         backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateX(0)" : `translateX(${slideDirection === "left" ? "-40px" : "40px"})`,
       }}
-      className="w-[95%] h-auto md:h-[400px] rounded-[20px]  flex flex-col md:flex-row gap-6 md:gap-8 p-6 md:p-8"
+      className="w-[95%] h-auto md:h-[400px] rounded-[20px] flex flex-col md:flex-row gap-6 md:gap-8 p-6 md:p-8 transition-all duration-500"
     >
       {/* Left Section */}
       <div className="w-full md:w-[50%] flex flex-col justify-between">

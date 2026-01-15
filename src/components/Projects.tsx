@@ -25,6 +25,7 @@ export default function Projects({ isDark }: props) {
           image="/trip-slice.png"
           githubUrl="https://github.com/UmerQureshi21/Tidier"
           isDark={isDark}
+          slideDirection="right"
         />
         <ProjectCard
           name="MacNotes"
@@ -47,6 +48,7 @@ export default function Projects({ isDark }: props) {
           image="/trail-sense.png"
           githubUrl="https://github.com/UmerQureshi21/trailsense"
           isDark={isDark}
+          slideDirection="right"
         />
       </div>
     </div>
