@@ -1,4 +1,4 @@
-import { GitHubButton, LinkedInButton } from "./Icons";
+import { EmailButton, GitHubButton, LinkedInButton } from "./Icons";
 
 interface PortfolioHeroProps {
   onViewWork: () => void;
@@ -33,6 +33,7 @@ export default function PortfolioHero({
           <div className="relative gap-[10px] flex md:flex-row flex-row md:left-[50px] w-[90%] md:w-[80%] py-[15px] justify-center md:justify-start mt-4">
             <GitHubButton url="https://github.com/UmerQureshi21" />
             <LinkedInButton url="https://www.linkedin.com/in/umer-qureshi06/" />
+            <EmailButton email="umerqis21@gmail.com" />
           </div>
         </div>
         <div className="w-full md:w-[50%] flex items-center justify-center p-6 md:p-0">
@@ -45,7 +46,7 @@ export default function PortfolioHero({
       </div>
       <button
         onClick={onViewWork}
-        className="sm:bottom-0 bottom-[40px] sm:top-[25px]  relative rounded-[20px] bottom-[15px] w-[90%] md:w-[20%] py-[5px] text-[16px] md:text-[20px] bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors"
+        className="sm:bottom-0 bottom-[40px] sm:top-[25px] text-white relative rounded-[20px] bottom-[15px] w-[90%] md:w-[20%] py-[5px] text-[16px] md:text-[20px] bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors"
       >
         View My Work!
       </button>

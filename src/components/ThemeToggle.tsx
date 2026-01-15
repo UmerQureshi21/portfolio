@@ -7,8 +7,9 @@ export default function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full transition-colors duration-300"
+      className="border-[1px] fixed top-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full transition-colors duration-300"
       style={{
+        borderColor: isDark ? "white" : "black",
         backgroundColor: isDark ? "rgb(231,74,74)" : "rgb(240,240,240)",
       }}
     >
@@ -18,7 +19,7 @@ export default function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
         </svg>
       ) : (
         <svg
-          className="w-6 h-6 text-white"
+          className="w-6 h-6 text-black"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

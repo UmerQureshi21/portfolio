@@ -19,14 +19,18 @@ export default function ProjectCard({
     <div
       style={{
         backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
-        color: isDark ? "white" : "black",
       }}
       className="w-[95%] h-auto md:h-[400px] rounded-[20px]  flex flex-col md:flex-row gap-6 md:gap-8 p-6 md:p-8"
     >
       {/* Left Section */}
       <div className="w-full md:w-[50%] flex flex-col justify-between">
         <div>
-          <h2 className="text-[24px] md:text-[30px] font-bold mb-4">{name}</h2>
+          <h2
+            style={{ color: isDark ? "white" : "black" }}
+            className="text-[24px] md:text-[30px] font-bold mb-4"
+          >
+            {name}
+          </h2>
           <p
             style={{
               color: isDark ? "white" : "black",
@@ -41,7 +45,7 @@ export default function ProjectCard({
             {technologies.map((tech) => (
               <div
                 key={tech}
-                className="bg-[rgb(231,74,74)] px-4 py-2 rounded-[10px] text-[12px] md:text-[14px] font-medium"
+                className="bg-[rgb(231,74,74)] px-4 py-2 text-white rounded-[10px] text-[12px] md:text-[14px] font-medium"
               >
                 {tech}
               </div>
@@ -54,7 +58,7 @@ export default function ProjectCard({
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-fit bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors rounded-[10px] px-6 py-3 font-medium text-[14px] md:text-[16px]"
+          className="flex text-white items-center justify-center gap-2 w-fit bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors rounded-[10px] px-6 py-3 font-medium text-[14px] md:text-[16px]"
         >
           View on GitHub
         </a>

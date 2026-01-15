@@ -35,3 +35,145 @@ export function LinkedInButton({ url }: LinkedInButtonProps) {
     </a>
   );
 }
+
+//import { useState } from "react";
+
+interface EmailButtonProps {
+  email: string;
+}
+
+export function EmailButton({ email }: EmailButtonProps) {
+  const handleClick = () => {
+    window.location.href = `mailto:${email}`;
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className="flex items-center justify-center w-9 h-9 bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors rounded-[10px] cursor-pointer"
+    >
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+      </svg>
+    </button>
+  );
+}
+
+export default function Demo() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <EmailButton email="your-email@example.com" />
+    </div>
+  );
+}
+
+// export function EmailButton({ email }: EmailButtonProps) {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [subject, setSubject] = useState("");
+//   const [message, setMessage] = useState("");
+
+//   const handleClick = (e: React.MouseEvent) => {
+//     e.preventDefault();
+//     setIsOpen(true);
+//   };
+
+//   const handleClose = () => {
+//     setIsOpen(false);
+//     setSubject("");
+//     setMessage("");
+//   };
+
+//   const handleSend = () => {
+//     if (!subject.trim() || !message.trim()) {
+//       alert("Please fill in all fields");
+//       return;
+//     }
+
+//     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+//       subject
+//     )}&body=${encodeURIComponent(message)}`;
+//     window.location.href = mailtoLink;
+//     handleClose();
+//   };
+
+//   return (
+//     <>
+//       <button
+//         onClick={handleClick}
+//         className="flex items-center justify-center w-9 h-9 bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors rounded-[10px] cursor-pointer"
+//       >
+//         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+//           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+//         </svg>
+//       </button>
+
+//       {isOpen && (
+//         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+//             <div className="flex justify-between items-center mb-4">
+//               <h2 className="text-xl font-semibold">Send an Email</h2>
+//               <button
+//                 onClick={handleClose}
+//                 className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
+//               >
+//                 ×
+//               </button>
+//             </div>
+
+//             <div className="space-y-4">
+//               <div>
+//                 <label className="block text-sm font-medium text-gray-700 mb-1">
+//                   To
+//                 </label>
+//                 <div className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-600">
+//                   {email}
+//                 </div>
+//               </div>
+
+//               <div>
+//                 <label className="block text-sm font-medium text-gray-700 mb-1">
+//                   Subject
+//                 </label>
+//                 <input
+//                   type="text"
+//                   value={subject}
+//                   onChange={(e) => setSubject(e.target.value)}
+//                   placeholder="Email subject"
+//                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(231,74,74)]"
+//                 />
+//               </div>
+
+//               <div>
+//                 <label className="block text-sm font-medium text-gray-700 mb-1">
+//                   Message
+//                 </label>
+//                 <textarea
+//                   value={message}
+//                   onChange={(e) => setMessage(e.target.value)}
+//                   placeholder="Your message"
+//                   rows={5}
+//                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(231,74,74)] resize-none"
+//                 />
+//               </div>
+
+//               <div className="flex gap-3 justify-end">
+//                 <button
+//                   onClick={handleClose}
+//                   className="px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors"
+//                 >
+//                   Cancel
+//                 </button>
+//                 <button
+//                   onClick={handleSend}
+//                   className="px-4 py-2 bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] text-white rounded-md transition-colors font-medium"
+//                 >
+//                   Send
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
