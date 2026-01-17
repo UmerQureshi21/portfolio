@@ -59,13 +59,11 @@ export function EmailButton({ email }: EmailButtonProps) {
   );
 }
 
-export default function Demo() {
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <EmailButton email="your-email@example.com" />
-    </div>
-  );
-}
+export const PinDropIcon = ({ size = 24, color = "currentColor" }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill={color}>
+    <path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+  </svg>
+);
 
 // export function EmailButton({ email }: EmailButtonProps) {
 //   const [isOpen, setIsOpen] = useState(false);

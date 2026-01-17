@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { EmailButton, GitHubButton, LinkedInButton } from "./Icons";
+import {
+  EmailButton,
+  GitHubButton,
+  LinkedInButton,
+  PinDropIcon,
+} from "./Icons";
 
 interface PortfolioHeroProps {
   onViewWork: () => void;
@@ -55,6 +60,17 @@ export default function PortfolioHero({
           >
             2nd year Computer Science @ McMaster
           </h1>
+          <div className="relative md:left-[50px] w-[90%] md:w-[80%] flex-col md:flex-row flex items-center gap-2 mt-4">
+            <PinDropIcon size={20} color={isDark ? "white" : "black"} />
+            <h1
+              style={{
+                color: isDark ? "white" : "black",
+              }}
+              className="text-[16px] md:text-[20px] font-thin"
+            >
+              Toronto, ON
+            </h1>
+          </div>
           <div className="relative gap-[10px] flex md:flex-row flex-row md:left-[50px] w-[90%] md:w-[80%] py-[15px] justify-center md:justify-start mt-4">
             <GitHubButton url="https://github.com/UmerQureshi21" />
             <LinkedInButton url="https://www.linkedin.com/in/umer-qureshi06/" />
