@@ -4,6 +4,7 @@ import PortfolioHero from "./components/PortfolioHero";
 import Projects from "./components/Projects";
 import { Education } from "./components/Education";
 import ThemeToggle from "./components/ThemeToggle";
+import WorkExperienceTimeline from "./components/WorkExperienceTimeline";
 
 function App() {
   const projectsRef = useRef<HTMLDivElement>(null);
@@ -29,6 +30,8 @@ function App() {
       <About isDark={isDark} />
       <div className="mt-[50px]"></div>
       <Education isDark={isDark} />
+      <div className="mt-[50px]"></div>
+      <WorkExperienceTimeline isDark={isDark} />
       <div className="mt-[50px]"></div>
       <div ref={projectsRef} className="w-full">
         <Projects isDark={isDark} />
