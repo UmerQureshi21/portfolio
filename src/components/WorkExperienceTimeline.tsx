@@ -17,7 +17,7 @@ const experiences: WorkExperienceData[] = [
     companyUrl: "https://lexingworth.vercel.app/",
     positionTitle: "Chief Technology Officer",
     date: "Nov 2025 - Present",
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     bullets: [
       "Built club website serving 30+ members across 5 sectors",
       "Automated attendance tracking and email reminders for 15+ events",
@@ -30,7 +30,13 @@ const experiences: WorkExperienceData[] = [
     companyUrl: "https://www.ayro.vc/",
     positionTitle: "Software Engineer Intern",
     date: "May 2025 - Aug 2025",
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Springboot",
+      "PostgreSQL",
+    ],
     bullets: [
       "Led 3 engineers to ship the flagship web app in React and TypeScript",
       "Developed investor dashboard surfacing visitor to signup conversion metrics; presented to 5+ investors in pre-seed fundraising and contributed to 30% increase in post-money valuation",
