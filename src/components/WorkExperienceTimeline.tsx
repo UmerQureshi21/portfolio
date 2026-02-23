@@ -82,15 +82,14 @@ function TimelineEntry({
 
   return (
     <div ref={ref} className="relative w-full md:flex md:items-center">
-      {/* Timeline dot */}
+      {/* Timeline dot - hidden on mobile */}
       <div
         style={{ borderColor: "var(--bg-page)" }}
-        className="absolute left-[14px] md:left-1/2 md:-translate-x-1/2 top-[20px] md:top-1/2 md:-translate-y-1/2 w-[24px] h-[24px] rounded-full bg-[rgb(231,74,74)] border-[4px] z-10"
+        className="hidden md:block absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 w-[24px] h-[24px] rounded-full bg-[rgb(231,74,74)] border-[4px] z-10"
       />
 
       <div
         className={`
-          ml-[50px] md:ml-0
           md:flex md:w-full
           ${isLeft ? "md:justify-start" : "md:justify-end"}
         `}
@@ -103,7 +102,7 @@ function TimelineEntry({
               ? "translateX(0)"
               : `translateX(${isLeft ? "-40px" : "40px"})`,
           }}
-          className="rounded-[20px] p-5 md:p-6 md:w-[45%] transition-all duration-500"
+          className="rounded-[20px] p-4 md:p-6 md:w-[45%] transition-all duration-500"
         >
           <WorkExperience
             companyImage={exp.companyImage}
@@ -127,13 +126,13 @@ export default function WorkExperienceTimeline() {
         Work Experience
       </h1>
       <div className="w-[95%] relative mt-[30px] md:mt-[50px]">
-        {/* Timeline vertical line - centered on desktop, left on mobile */}
+        {/* Timeline vertical line - hidden on mobile */}
         <div
           style={{ backgroundColor: "rgb(231,74,74)" }}
-          className="absolute left-[24px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px]"
+          className="hidden md:block absolute md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px]"
         />
 
-        <div className="flex flex-col gap-8 md:gap-12">
+        <div className="flex flex-col gap-4 md:gap-12">
           {experiences.map((exp, index) => (
             <TimelineEntry key={index} experience={exp} index={index} />
           ))}
