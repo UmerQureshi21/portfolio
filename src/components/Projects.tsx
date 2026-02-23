@@ -3,7 +3,8 @@ import ProjectCard from "./ProjectCard";
 let projectsData = [
   {
     name: "TripSlice",
-    description: "AI powered vacation montage maker.",
+    description:
+      "AI powered vacation montage maker that trims long vacation videos and combines them into personalized compilations based on a topic that you provide.",
     technologies: [
       "Java Springboot",
       "React.js",

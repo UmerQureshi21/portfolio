@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import WorkExperience from "./WorkExperience";
 
 interface WorkExperienceData {
@@ -20,8 +21,8 @@ const experiences: WorkExperienceData[] = [
     technologies: ["React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     bullets: [
       "Built club website serving 30+ members across 5 sectors",
-      "Automated attendance tracking and email reminders for 15+ events",
-      "Reduced event coordination effort by 60% with a custom management database",
+      "Automating attendance tracking and email reminders for 15+ events",
+      "Reducing event coordination effort by 60% with a custom management database",
     ],
   },
   {
@@ -56,53 +57,86 @@ const experiences: WorkExperienceData[] = [
   },
 ];
 
+function TimelineEntry({
+  experience: exp,
+  index,
+}: {
+  experience: WorkExperienceData;
+  index: number;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const isLeft = index % 2 === 0;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      setIsVisible(rect.top < window.innerHeight && rect.bottom > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative w-full md:flex md:items-center">
+      {/* Timeline dot */}
+      <div
+        style={{ borderColor: "var(--bg-page)" }}
+        className="absolute left-[14px] md:left-1/2 md:-translate-x-1/2 top-[20px] md:top-1/2 md:-translate-y-1/2 w-[24px] h-[24px] rounded-full bg-[rgb(231,74,74)] border-[4px] z-10"
+      />
+
+      <div
+        className={`
+          ml-[50px] md:ml-0
+          md:flex md:w-full
+          ${isLeft ? "md:justify-start" : "md:justify-end"}
+        `}
+      >
+        <div
+          style={{
+            backgroundColor: "var(--bg-card)",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible
+              ? "translateX(0)"
+              : `translateX(${isLeft ? "-40px" : "40px"})`,
+          }}
+          className="rounded-[20px] p-5 md:p-6 md:w-[45%] transition-all duration-500"
+        >
+          <WorkExperience
+            companyImage={exp.companyImage}
+            companyName={exp.companyName}
+            companyUrl={exp.companyUrl}
+            positionTitle={exp.positionTitle}
+            date={exp.date}
+            technologies={exp.technologies}
+            bullets={exp.bullets}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function WorkExperienceTimeline() {
   return (
     <div className="flex flex-col items-center w-full px-4 md:px-0">
       <h1 className="w-[95%] text-[40px] md:text-[60px] text-[rgb(231,74,74)] font-bold">
         Work Experience
       </h1>
-      <div
-        style={{
-          backgroundColor: "var(--bg-card)",
-        }}
-        className="w-[95%] rounded-[20px] flex flex-col p-6 md:p-8 mt-[30px] md:mt-[50px]"
-      >
-        <div className="relative ml-4 md:ml-8">
-          {/* Timeline vertical line */}
-          <div
-            style={{
-              backgroundColor: "rgb(231,74,74)",
-            }}
-            className="absolute left-[24px] top-0 bottom-0 w-[2px]"
-          />
+      <div className="w-[95%] relative mt-[30px] md:mt-[50px]">
+        {/* Timeline vertical line - centered on desktop, left on mobile */}
+        <div
+          style={{ backgroundColor: "rgb(231,74,74)" }}
+          className="absolute left-[24px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px]"
+        />
 
-          <div className="flex flex-col gap-10">
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative flex items-start">
-                {/* Timeline dot */}
-                <div
-                  style={{
-                    borderColor: "var(--bg-card)",
-                  }}
-                  className="absolute left-[17px] top-[14px] w-[16px] h-[16px] rounded-full bg-[rgb(231,74,74)] border-[3px] z-10"
-                />
-
-                {/* Content */}
-                <div className="ml-[50px] w-full pr-4">
-                  <WorkExperience
-                    companyImage={exp.companyImage}
-                    companyName={exp.companyName}
-                    companyUrl={exp.companyUrl}
-                    positionTitle={exp.positionTitle}
-                    date={exp.date}
-                    technologies={exp.technologies}
-                    bullets={exp.bullets}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-col gap-8 md:gap-12">
+          {experiences.map((exp, index) => (
+            <TimelineEntry key={index} experience={exp} index={index} />
+          ))}
         </div>
       </div>
     </div>

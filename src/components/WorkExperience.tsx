@@ -51,7 +51,7 @@ export default function WorkExperience({
           {date}
         </p>
       </div>
-      <div className="ml-[66px] flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2">
         {technologies.map((tech) => (
           <div
             key={tech}
@@ -61,7 +61,7 @@ export default function WorkExperience({
           </div>
         ))}
       </div>
-      <ul className="ml-[66px] flex flex-col gap-2">
+      <ul className="ml-4 flex flex-col gap-2">
         {bullets.map((bullet, index) => (
           <li
             key={index}

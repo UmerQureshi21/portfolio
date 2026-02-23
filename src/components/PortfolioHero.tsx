@@ -6,11 +6,7 @@ import {
   PinDropIcon,
 } from "./Icons";
 
-interface PortfolioHeroProps {
-  onViewWork: () => void;
-}
-
-export default function PortfolioHero({ onViewWork }: PortfolioHeroProps) {
+export default function PortfolioHero() {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -81,16 +77,6 @@ export default function PortfolioHero({ onViewWork }: PortfolioHeroProps) {
           />
         </div>
       </div>
-      <button
-        onClick={onViewWork}
-        style={{
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? "translateY(0)" : "translateY(20px)",
-        }}
-        className="sm:bottom-0 bottom-[40px] sm:top-[25px] text-white relative rounded-[20px] bottom-[15px] w-[90%] md:w-[20%] py-[5px] text-[16px] md:text-[20px] bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-all duration-500"
-      >
-        View My Work!
-      </button>
     </div>
   );
 }
