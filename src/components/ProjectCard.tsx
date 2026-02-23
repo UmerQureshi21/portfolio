@@ -6,7 +6,6 @@ interface ProjectCardProps {
   technologies: string[];
   image: string;
   githubUrl: string;
-  isDark: boolean;
   slideDirection?: "left" | "right";
 }
 
@@ -16,7 +15,6 @@ export default function ProjectCard({
   technologies,
   image,
   githubUrl,
-  isDark,
   slideDirection = "left",
 }: ProjectCardProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -42,7 +40,7 @@ export default function ProjectCard({
     <div
       ref={containerRef}
       style={{
-        backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
+        backgroundColor: "var(--bg-card)",
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateX(0)" : `translateX(${slideDirection === "left" ? "-40px" : "40px"})`,
       }}
@@ -52,14 +50,14 @@ export default function ProjectCard({
       <div className="w-full md:w-[50%] flex flex-col justify-between">
         <div>
           <h2
-            style={{ color: isDark ? "white" : "black" }}
+            style={{ color: "var(--text-primary)" }}
             className="text-[24px] md:text-[30px] font-bold mb-4"
           >
             {name}
           </h2>
           <p
             style={{
-              color: isDark ? "white" : "black",
+              color: "var(--text-primary)",
             }}
             className="text-[16px] md:text-[18px] font-light  mb-8"
           >

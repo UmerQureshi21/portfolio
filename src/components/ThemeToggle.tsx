@@ -1,16 +1,22 @@
-interface ThemeToggleProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
+import { useState } from "react";
 
-export default function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
+export default function ThemeToggle() {
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains("dark")
+  );
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+    setIsDark(!isDark);
+  };
+
   return (
     <button
       onClick={toggleTheme}
       className="border-[1px] fixed top-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full transition-colors duration-300"
       style={{
-        borderColor: isDark ? "white" : "black",
-        backgroundColor: isDark ? "rgb(231,74,74)" : "rgb(240,240,240)",
+        borderColor: "var(--toggle-border)",
+        backgroundColor: "var(--toggle-bg)",
       }}
     >
       {isDark ? (
@@ -25,70 +31,14 @@ export default function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
           viewBox="0 0 24 24"
         >
           <circle cx="12" cy="12" r="5" strokeWidth="2" />
-          <line
-            x1="12"
-            y1="1"
-            x2="12"
-            y2="3"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="12"
-            y1="21"
-            x2="12"
-            y2="23"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="4.22"
-            y1="4.22"
-            x2="5.64"
-            y2="5.64"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="18.36"
-            y1="18.36"
-            x2="19.78"
-            y2="19.78"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="1"
-            y1="12"
-            x2="3"
-            y2="12"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="21"
-            y1="12"
-            x2="23"
-            y2="12"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="4.22"
-            y1="19.78"
-            x2="5.64"
-            y2="18.36"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="18.36"
-            y1="5.64"
-            x2="19.78"
-            y2="4.22"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
+          <line x1="12" y1="1" x2="12" y2="3" strokeWidth="2" strokeLinecap="round" />
+          <line x1="12" y1="21" x2="12" y2="23" strokeWidth="2" strokeLinecap="round" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" strokeWidth="2" strokeLinecap="round" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" strokeWidth="2" strokeLinecap="round" />
+          <line x1="1" y1="12" x2="3" y2="12" strokeWidth="2" strokeLinecap="round" />
+          <line x1="21" y1="12" x2="23" y2="12" strokeWidth="2" strokeLinecap="round" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" strokeWidth="2" strokeLinecap="round" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" strokeWidth="2" strokeLinecap="round" />
         </svg>
       )}
     </button>
