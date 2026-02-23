@@ -69,7 +69,7 @@ export default function ProjectCard({
             {technologies.map((tech) => (
               <div
                 key={tech}
-                className="bg-[rgb(231,74,74)] px-4 py-2 text-white rounded-[10px] text-[12px] md:text-[14px] font-medium"
+                className="accent-bg px-4 py-2 text-white rounded-[10px] text-[12px] md:text-[14px] font-medium"
               >
                 {tech}
               </div>
@@ -82,7 +82,7 @@ export default function ProjectCard({
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex text-white items-center justify-center gap-2 w-fit bg-[rgb(231,74,74)] hover:bg-[rgb(211,54,54)] transition-colors rounded-[10px] px-6 py-3 font-medium text-[14px] md:text-[16px]"
+          className="flex text-white items-center justify-center gap-2 w-fit accent-bg accent-bg-hover transition-colors rounded-[10px] px-6 py-3 font-medium text-[14px] md:text-[16px]"
         >
           View on GitHub
         </a>
@@ -93,7 +93,7 @@ export default function ProjectCard({
         <img
           src={image}
           alt={name}
-          className="w-[90%] md:w-[80%] object-cover rounded-[15px] border-[rgb(231,74,74)] border-[1px]"
+          className="w-[90%] md:w-[80%] object-cover rounded-[15px] accent-border border-[1px]"
         />
       </div>
     </div>

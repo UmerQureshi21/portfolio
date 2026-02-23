@@ -85,7 +85,7 @@ function TimelineEntry({
       {/* Timeline dot - hidden on mobile */}
       <div
         style={{ borderColor: "var(--bg-page)" }}
-        className="hidden md:block absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 w-[24px] h-[24px] rounded-full bg-[rgb(231,74,74)] border-[4px] z-10"
+        className="hidden md:block absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 w-[24px] h-[24px] rounded-full accent-bg border-[4px] z-10"
       />
 
       <div
@@ -122,13 +122,13 @@ function TimelineEntry({
 export default function WorkExperienceTimeline() {
   return (
     <div className="flex flex-col items-center w-full px-4 md:px-0">
-      <h1 className="w-[95%] text-[40px] md:text-[60px] text-[rgb(231,74,74)] font-bold">
+      <h1 className="w-[95%] text-[40px] md:text-[60px] accent-text font-bold">
         Work Experience
       </h1>
       <div className="w-[95%] relative mt-[30px] md:mt-[50px]">
         {/* Timeline vertical line - hidden on mobile */}
         <div
-          style={{ backgroundColor: "rgb(231,74,74)" }}
+          style={{ backgroundColor: "var(--accent)" }}
           className="hidden md:block absolute md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px]"
         />
 

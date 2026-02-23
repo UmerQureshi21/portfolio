@@ -4,9 +4,11 @@
 
 :root {
   --bg-page: rgb(255, 255, 255);
-  --bg-card: rgb(240, 240, 240);
+  --bg-card: rgb(230, 230, 230);
   --text-primary: black;
   --text-secondary: rgb(80, 80, 80);
+  --accent: rgb(231, 44, 44);
+  --accent-hover: rgb(211, 54, 54);
   --toggle-border: black;
   --toggle-bg: rgb(240, 240, 240);
 }
@@ -16,9 +18,17 @@ html.dark {
   --bg-card: rgb(20, 20, 20);
   --text-primary: white;
   --text-secondary: rgb(200, 200, 200);
+  --accent: rgb(231, 74, 74);
+  --accent-hover: rgb(211, 54, 54);
   --toggle-border: white;
-  --toggle-bg: rgb(231, 74, 74);
+  --toggle-bg: var(--accent);
 }
+
+.accent-text { color: var(--accent); }
+.accent-bg { background-color: var(--accent); }
+.accent-bg-hover:hover { background-color: var(--accent-hover); }
+.accent-border { border-color: var(--accent); }
+.accent-text-hover:hover { color: var(--accent); }
 
 * {
   box-sizing: border-box;

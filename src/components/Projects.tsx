@@ -45,7 +45,7 @@ let projectsData = [
 export default function Projects() {
   return (
     <div className="flex flex-col items-center w-full px-4 md:px-0">
-      <h1 className="w-[95%] text-[40px] md:text-[60px] text-[rgb(231,74,74)] font-bold">
+      <h1 className="w-[95%] text-[40px] md:text-[60px] accent-text font-bold">
         Projects
       </h1>
       <div className="w-full flex flex-col gap-[15px] md:gap-[20px] items-center mt-[30px] md:mt-[50px]">

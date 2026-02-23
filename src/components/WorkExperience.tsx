@@ -25,7 +25,7 @@ export default function WorkExperience({
           <img
             src={companyImage}
             alt={companyName}
-            className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-full object-cover border-[1px] border-[rgb(231,74,74)] flex-shrink-0"
+            className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-full object-cover border-[1px] accent-border flex-shrink-0"
           />
           <div className="min-w-0">
             <a
@@ -33,7 +33,7 @@ export default function WorkExperience({
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--text-primary)" }}
-              className="text-[15px] md:text-[22px] font-semibold hover:text-[rgb(231,74,74)] transition-colors block truncate"
+              className="text-[15px] md:text-[22px] font-semibold accent-text-hover transition-colors block truncate"
             >
               {companyName}
             </a>
@@ -58,7 +58,7 @@ export default function WorkExperience({
         {technologies.map((tech) => (
           <div
             key={tech}
-            className="bg-[rgb(231,74,74)] px-2 md:px-3 py-0.5 md:py-1 text-white rounded-[10px] text-[10px] md:text-[13px] font-medium"
+            className="accent-bg px-2 md:px-3 py-0.5 md:py-1 text-white rounded-[10px] text-[10px] md:text-[13px] font-medium"
           >
             {tech}
           </div>

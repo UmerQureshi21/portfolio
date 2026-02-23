@@ -6,7 +6,7 @@ export function About() {
       }}
       className="w-[95%] h-auto md:h-[200px] rounded-[20px] flex flex-col items-center justify-center p-6 md:p-0"
     >
-      <h1 className="w-[90%] text-left text-[24px] md:text-[30px] text-[rgb(231,74,74)] font-bold">
+      <h1 className="w-[90%] text-left text-[24px] md:text-[30px] accent-text font-bold">
         About
       </h1>
       <h1

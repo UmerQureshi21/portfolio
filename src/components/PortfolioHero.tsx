@@ -42,7 +42,7 @@ export default function PortfolioHero() {
       >
         <div className="w-full md:w-[50%] flex flex-col items-center justify-center p-6 md:p-0">
           <h1 className="relative md:left-[50px] w-[90%] md:w-[80%] text-[60px] md:text-[120px] font-thin text-center md:text-left leading-tight">
-            Hi, I'm <span className="text-[rgb(231,74,74)]">Umer</span>!
+            Hi, I'm <span className="accent-text">Umer</span>!
           </h1>
           <h1
             style={{
@@ -73,7 +73,7 @@ export default function PortfolioHero() {
           <img
             src="/headshot.jpg"
             alt=""
-            className="w-[95%] md:w-[50%] border-[rgb(231,74,74)] border-[1px] rounded-[20px]"
+            className="w-[95%] md:w-[50%] accent-border border-[1px] rounded-[20px]"
           />
         </div>
       </div>
