@@ -10,10 +10,6 @@ interface WorkExperienceData {
   bullets: string[];
 }
 
-interface WorkExperienceTimelineProps {
-  isDark: boolean;
-}
-
 const experiences: WorkExperienceData[] = [
   {
     companyImage: "/mcmaster-investments.png",
@@ -54,9 +50,7 @@ const experiences: WorkExperienceData[] = [
   },
 ];
 
-export default function WorkExperienceTimeline({
-  isDark,
-}: WorkExperienceTimelineProps) {
+export default function WorkExperienceTimeline() {
   return (
     <div className="flex flex-col items-center w-full px-4 md:px-0">
       <h1 className="w-[95%] text-[40px] md:text-[60px] text-[rgb(231,74,74)] font-bold">
@@ -64,7 +58,7 @@ export default function WorkExperienceTimeline({
       </h1>
       <div
         style={{
-          backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
+          backgroundColor: "var(--bg-card)",
         }}
         className="w-[95%] rounded-[20px] flex flex-col p-6 md:p-8 mt-[30px] md:mt-[50px]"
       >
@@ -83,7 +77,7 @@ export default function WorkExperienceTimeline({
                 {/* Timeline dot */}
                 <div
                   style={{
-                    borderColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
+                    borderColor: "var(--bg-card)",
                   }}
                   className="absolute left-[17px] top-[14px] w-[16px] h-[16px] rounded-full bg-[rgb(231,74,74)] border-[3px] z-10"
                 />
@@ -98,7 +92,6 @@ export default function WorkExperienceTimeline({
                     date={exp.date}
                     technologies={exp.technologies}
                     bullets={exp.bullets}
-                    isDark={isDark}
                   />
                 </div>
               </div>

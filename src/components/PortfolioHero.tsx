@@ -8,13 +8,9 @@ import {
 
 interface PortfolioHeroProps {
   onViewWork: () => void;
-  isDark: boolean;
 }
 
-export default function PortfolioHero({
-  onViewWork,
-  isDark,
-}: PortfolioHeroProps) {
+export default function PortfolioHero({ onViewWork }: PortfolioHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,8 +37,8 @@ export default function PortfolioHero({
     >
       <div
         style={{
-          backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
-          color: isDark ? "white" : "black",
+          backgroundColor: "var(--bg-card)",
+          color: "var(--text-primary)",
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? "translateY(0)" : "translateY(20px)",
         }}
@@ -54,17 +50,17 @@ export default function PortfolioHero({
           </h1>
           <h1
             style={{
-              color: isDark ? "white" : "black",
+              color: "var(--text-primary)",
             }}
             className="relative md:left-[50px] w-[90%] md:w-[80%] text-[16px] md:text-[20px] font-thin text-center md:text-left mt-4"
           >
             2nd year Computer Science @ McMaster
           </h1>
           <div className="relative md:left-[50px] w-[90%] md:w-[80%] flex-col md:flex-row flex items-center gap-2 mt-4">
-            <PinDropIcon size={20} color={isDark ? "white" : "black"} />
+            <PinDropIcon size={20} />
             <h1
               style={{
-                color: isDark ? "white" : "black",
+                color: "var(--text-primary)",
               }}
               className="text-[16px] md:text-[20px] font-thin"
             >

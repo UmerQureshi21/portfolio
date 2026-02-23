@@ -1,12 +1,8 @@
-interface AboutProps {
-  isDark: boolean;
-}
-
-export function About({ isDark }: AboutProps) {
+export function About() {
   return (
     <div
       style={{
-        backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
+        backgroundColor: "var(--bg-card)",
       }}
       className="w-[95%] h-auto md:h-[200px] rounded-[20px] flex flex-col items-center justify-center p-6 md:p-0"
     >
@@ -15,7 +11,7 @@ export function About({ isDark }: AboutProps) {
       </h1>
       <h1
         style={{
-          color: isDark ? "white" : "black",
+          color: "var(--text-primary)",
         }}
         className="text-[16px] md:text-[20px] w-[90%] mt-[20px] font-light"
       >

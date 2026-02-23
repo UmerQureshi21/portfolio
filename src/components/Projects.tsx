@@ -1,9 +1,5 @@
 import ProjectCard from "./ProjectCard";
 
-interface props {
-  isDark: boolean;
-}
-
 let projectsData = [
   {
     name: "TripSlice",
@@ -45,7 +41,7 @@ let projectsData = [
   },
 ];
 
-export default function Projects({ isDark }: props) {
+export default function Projects() {
   return (
     <div className="flex flex-col items-center w-full px-4 md:px-0">
       <h1 className="w-[95%] text-[40px] md:text-[60px] text-[rgb(231,74,74)] font-bold">
@@ -60,7 +56,6 @@ export default function Projects({ isDark }: props) {
             technologies={project.technologies}
             image={project.image}
             githubUrl={project.githubUrl}
-            isDark={isDark}
             slideDirection={index % 2 === 0 ? "left" : "right"}
           />
         ))}

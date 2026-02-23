@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-page: rgb(255, 255, 255);
+  --bg-card: rgb(240, 240, 240);
+  --text-primary: black;
+  --text-secondary: rgb(80, 80, 80);
+  --toggle-border: black;
+  --toggle-bg: rgb(240, 240, 240);
+}
+
+html.dark {
+  --bg-page: black;
+  --bg-card: rgb(20, 20, 20);
+  --text-primary: white;
+  --text-secondary: rgb(200, 200, 200);
+  --toggle-border: white;
+  --toggle-bg: rgb(231, 74, 74);
+}
 
 * {
   box-sizing: border-box;

@@ -6,7 +6,6 @@ interface WorkExperienceProps {
   date: string;
   technologies: string[];
   bullets: string[];
-  isDark: boolean;
 }
 
 export default function WorkExperience({
@@ -17,7 +16,6 @@ export default function WorkExperience({
   date,
   technologies,
   bullets,
-  isDark,
 }: WorkExperienceProps) {
   return (
     <div className="flex flex-col gap-3 w-full">
@@ -33,13 +31,13 @@ export default function WorkExperience({
               href={companyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: isDark ? "white" : "black" }}
+              style={{ color: "var(--text-primary)" }}
               className="text-[18px] md:text-[22px] font-semibold hover:text-[rgb(231,74,74)] transition-colors"
             >
               {companyName}
             </a>
             <p
-              style={{ color: isDark ? "rgb(200,200,200)" : "rgb(80,80,80)" }}
+              style={{ color: "var(--text-secondary)" }}
               className="text-[14px] md:text-[16px] font-light"
             >
               {positionTitle}
@@ -47,7 +45,7 @@ export default function WorkExperience({
           </div>
         </div>
         <p
-          style={{ color: isDark ? "rgb(200,200,200)" : "rgb(80,80,80)" }}
+          style={{ color: "var(--text-secondary)" }}
           className="text-[12px] md:text-[14px] font-light whitespace-nowrap"
         >
           {date}
@@ -67,7 +65,7 @@ export default function WorkExperience({
         {bullets.map((bullet, index) => (
           <li
             key={index}
-            style={{ color: isDark ? "rgb(200,200,200)" : "rgb(80,80,80)" }}
+            style={{ color: "var(--text-secondary)" }}
             className="text-[13px] md:text-[15px] font-light list-disc"
           >
             {bullet}

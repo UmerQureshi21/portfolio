@@ -1,14 +1,10 @@
-interface props {
-  isDark: boolean;
-}
-
-export function Education({ isDark }: props) {
+export function Education() {
   return (
     <div
       style={{
-        backgroundColor: isDark ? "rgb(20,20,20)" : "rgb(240,240,240)",
+        backgroundColor: "var(--bg-card)",
       }}
-      className="w-[95%] h-auto md:h-[200px] pt-[20px] bg-[rgb(20,20,20)] rounded-[20px] flex flex-col items-center justify-center p-6 md:p-0"
+      className="w-[95%] h-auto md:h-[200px] pt-[20px] rounded-[20px] flex flex-col items-center justify-center p-6 md:p-0"
     >
       <h1 className="w-[90%] text-left text-[24px] md:text-[30px] text-[rgb(231,74,74)] font-bold">
         Education
@@ -21,7 +17,7 @@ export function Education({ isDark }: props) {
         />
         <h1
           style={{
-            color: isDark ? "white" : "black",
+            color: "var(--text-primary)",
           }}
           className=" text-[16px] md:text-[20px]"
         >
