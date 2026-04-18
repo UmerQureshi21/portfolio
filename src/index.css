@@ -87,7 +87,7 @@ section {
 
 .card-container {
   position: relative;
-  width: 75%;
+  width: 90%;
   display: flex;
   perspective: 1000px;
   transform: translateY(40px);
@@ -97,7 +97,7 @@ section {
 .card {
   position: relative;
   flex: 1;
-  aspect-ratio: 5/6;
+  aspect-ratio: 400/521;
   transform-style: preserve-3d;
   transform-origin: top;
 }

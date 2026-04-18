@@ -219,13 +219,13 @@ function App() {
               const widthPercentage = gsap.utils.mapRange(
                 0,
                 0.25,
+                90,
                 75,
-                60,
                 progress
               );
               gsap.set(cardContainer, { width: `${widthPercentage}%` });
             } else {
-              gsap.set(cardContainer, { width: "60%" });
+              gsap.set(cardContainer, { width: "75%" });
             }
 
             // --- Gap + border-radius at 35% ---
