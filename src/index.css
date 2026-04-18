@@ -149,6 +149,173 @@ section {
   background-color: var(--card-3);
 }
 
+/* --- Intro content --- */
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.intro-role {
+  font-size: 1.2rem;
+  font-weight: 300;
+  opacity: 0.6;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.intro-about {
+  font-size: 1.1rem;
+  font-weight: 300;
+  opacity: 0.7;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+/* --- Card label (title shown on back before expand) --- */
+.card-label p {
+  font-size: 1.8rem;
+}
+
+/* --- Education content (always visible on card 2 back) --- */
+.edu-content {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  text-align: left;
+}
+
+.edu-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.edu-content .detail-meta {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.edu-content .coursework {
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* --- Close button --- */
+.close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: none;
+  border: 2px solid currentColor;
+  color: inherit;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Expanded card detail content --- */
+.card-detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3.5rem 2rem 2rem;
+  opacity: 0;
+  pointer-events: none;
+  overflow-y: auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-detail .detail-entry {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 1.2rem;
+}
+
+.card-detail .detail-entry:last-child {
+  border-bottom: none;
+}
+
+.card-detail h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.card-detail .detail-meta {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.card-detail p {
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+#card-1 .card-detail .detail-entry {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Cards 1 & 3 get pointer cursor after flip */
+#card-1,
+#card-3 {
+  cursor: pointer;
+}
+
+/* --- Outro content --- */
+.outro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.outro-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.outro-links a {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.7;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: opacity 0.3s;
+}
+
+.outro-links a:hover {
+  opacity: 1;
+}
+
 @media (max-width: 1000px) {
   h1 {
     font-size: 3rem;
@@ -187,6 +354,24 @@ section {
     max-width: 400px;
     margin: 0 auto;
     border-radius: 20px !important;
+  }
+
+  .intro h1 {
+    font-size: 2.5rem;
+  }
+
+  .intro-about {
+    max-width: 100%;
+  }
+
+  .outro-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .edu-content h3 {
+    font-size: 1rem;
   }
 }
 

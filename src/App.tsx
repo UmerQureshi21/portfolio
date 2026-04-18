@@ -1,9 +1,128 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
 function App() {
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const flipCompleteRef = useRef(false);
+
+  const handleCardClick = useCallback(
+    (cardId: string) => {
+      if (!flipCompleteRef.current || expandedCard) return;
+
+      setExpandedCard(cardId);
+
+      const otherCards = ["#card-1", "#card-2", "#card-3"].filter(
+        (id) => id !== `#${cardId}`
+      );
+
+      otherCards.forEach((id) => {
+        gsap.to(`${id} .card-front, ${id} .card-back`, {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        });
+        gsap.set(id, { pointerEvents: "none" });
+      });
+
+      // Calculate X offset to center the card in the container
+      const cardEl = document.getElementById(cardId);
+      const container = document.querySelector(".card-container");
+      if (cardEl && container) {
+        const cardRect = cardEl.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const containerCenter = containerRect.left + containerRect.width / 2;
+        const xOffset = containerCenter - cardCenter;
+
+        gsap.to(`#${cardId}`, {
+          scale: 1.6,
+          x: xOffset,
+          y: 0,
+          rotateZ: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          zIndex: 10,
+        });
+      }
+
+      gsap.to(`#${cardId} .card-detail`, {
+        opacity: 1,
+        delay: 0.3,
+        duration: 0.4,
+        ease: "power2.out",
+      });
+
+      gsap.to(`#${cardId} .card-label`, {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.out",
+      });
+
+      gsap.to(`#${cardId} .close-btn`, {
+        opacity: 1,
+        delay: 0.4,
+        duration: 0.3,
+      });
+    },
+    [expandedCard]
+  );
+
+  const handleClose = useCallback(() => {
+    if (!expandedCard) return;
+
+    const cardId = expandedCard;
+    const otherCards = ["#card-1", "#card-2", "#card-3"].filter(
+      (id) => id !== `#${cardId}`
+    );
+
+    gsap.to(`#${cardId} .close-btn`, {
+      opacity: 0,
+      duration: 0.2,
+    });
+
+    gsap.to(`#${cardId} .card-detail`, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+    });
+
+    gsap.to(`#${cardId} .card-label`, {
+      opacity: 1,
+      delay: 0.2,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+
+    // Restore original tilt and position
+    const originalY = 20;
+    const originalRotateZ = cardId === "card-1" ? -3 : cardId === "card-3" ? 3 : 0;
+
+    gsap.to(`#${cardId}`, {
+      scale: 1,
+      x: 0,
+      y: originalY,
+      rotateZ: originalRotateZ,
+      duration: 0.5,
+      delay: 0.2,
+      ease: "power3.out",
+      zIndex: 0,
+    });
+
+    otherCards.forEach((id) => {
+      gsap.to(`${id} .card-front, ${id} .card-back`, {
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.3,
+        ease: "power3.out",
+      });
+      gsap.set(id, { pointerEvents: "auto", delay: 0.8 });
+    });
+
+    setExpandedCard(null);
+  }, [expandedCard]);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +133,10 @@ function App() {
     });
     gsap.ticker.lagSmoothing(0);
 
-    const cardContainer = document.querySelector<HTMLElement>(".card-container");
-    const stickyHeader = document.querySelector<HTMLElement>(".sticky-header h1");
+    const cardContainer =
+      document.querySelector<HTMLElement>(".card-container");
+    const stickyHeader =
+      document.querySelector<HTMLElement>(".sticky-header h1");
 
     let isGapAnimationCompleted = false;
     let isFlipAnimationCompleted = false;
@@ -27,7 +148,9 @@ function App() {
 
       mm.add("(max-width: 999px)", () => {
         document
-          .querySelectorAll<HTMLElement>(".card, .card-container, .sticky-header h1")
+          .querySelectorAll<HTMLElement>(
+            ".card, .card-container, .sticky-header h1"
+          )
           .forEach((el) => {
             el.removeAttribute("style");
           });
@@ -47,9 +170,21 @@ function App() {
 
             // --- Header slide-in (10% - 25%) ---
             if (progress >= 0.1 && progress <= 0.25) {
-              const headerProgress = gsap.utils.mapRange(0.1, 0.25, 0, 1, progress);
+              const headerProgress = gsap.utils.mapRange(
+                0.1,
+                0.25,
+                0,
+                1,
+                progress
+              );
               const yValue = gsap.utils.mapRange(0, 1, 40, 0, headerProgress);
-              const opacityValue = gsap.utils.mapRange(0, 1, 0, 1, headerProgress);
+              const opacityValue = gsap.utils.mapRange(
+                0,
+                1,
+                0,
+                1,
+                headerProgress
+              );
 
               gsap.set(stickyHeader, {
                 y: yValue,
@@ -69,7 +204,13 @@ function App() {
 
             // --- Card container width (0% - 25%) ---
             if (progress <= 0.25) {
-              const widthPercentage = gsap.utils.mapRange(0, 0.25, 75, 60, progress);
+              const widthPercentage = gsap.utils.mapRange(
+                0,
+                0.25,
+                75,
+                60,
+                progress
+              );
               gsap.set(cardContainer, { width: `${widthPercentage}%` });
             } else {
               gsap.set(cardContainer, { width: "60%" });
@@ -145,6 +286,7 @@ function App() {
               });
 
               isFlipAnimationCompleted = true;
+              flipCompleteRef.current = true;
             }
 
             // --- Reverse flip below 70% ---
@@ -171,6 +313,7 @@ function App() {
               });
 
               isFlipAnimationCompleted = false;
+              flipCompleteRef.current = false;
             }
           },
         });
@@ -200,48 +343,160 @@ function App() {
 
   return (
     <div className="poppins-font">
+      {/* --- Intro --- */}
       <section className="intro">
-        <h1>every idea begins as a simple image</h1>
+        <div className="intro-content">
+          <h1>Your Name</h1>
+          <p className="intro-role">Software Developer</p>
+          <p className="intro-about">
+            Building thoughtful digital experiences with clean code and creative
+            problem solving.
+          </p>
+        </div>
       </section>
+
+      {/* --- Sticky card section --- */}
       <section className="sticky">
         <div className="sticky-header">
-          <h1>three pillars with one purpose</h1>
+          <h1>what I bring to the table</h1>
         </div>
 
         <div className="card-container">
-          <div className="card" id="card-1">
+          {/* Card 1 — Work Experience */}
+          <div
+            className="card"
+            id="card-1"
+            onClick={() => handleCardClick("card-1")}
+          >
             <div className="card-front">
               <img src="/thirds/1.jpg" alt="" />
             </div>
             <div className="card-back">
               <span>( 01 )</span>
-              <p>Interactive Web Experience</p>
+              <div className="card-label">
+                <p>Work Experience</p>
+              </div>
+              <button
+                className="close-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClose();
+                }}
+              >
+                ✕
+              </button>
+              <div className="card-detail">
+                <div className="detail-entry">
+                  <h3>Software Engineer</h3>
+                  <span className="detail-meta">Company Name — 2024-Present</span>
+                  <p>
+                    Built and maintained full-stack web applications. Collaborated
+                    with cross-functional teams to deliver features on tight
+                    deadlines.
+                  </p>
+                </div>
+                <div className="detail-entry">
+                  <h3>Frontend Developer Intern</h3>
+                  <span className="detail-meta">Another Company — 2023</span>
+                  <p>
+                    Developed responsive UI components and improved page load
+                    performance by 40%.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
+          {/* Card 2 — Education */}
           <div className="card" id="card-2">
             <div className="card-front">
               <img src="/thirds/2.jpg" alt="" />
             </div>
             <div className="card-back">
               <span>( 02 )</span>
-              <p>Interactive Web Experience</p>
+              <div className="card-label">
+                <p>Education</p>
+              </div>
+              <div className="edu-content">
+                <h3>B.S. Computer Science</h3>
+                <span className="detail-meta">Your University — 2024</span>
+                <p className="coursework">
+                  Data Structures &middot; Algorithms &middot; Operating Systems
+                  &middot; Databases &middot; Software Engineering &middot; Web
+                  Development
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="card" id="card-3">
+          {/* Card 3 — Projects */}
+          <div
+            className="card"
+            id="card-3"
+            onClick={() => handleCardClick("card-3")}
+          >
             <div className="card-front">
               <img src="/thirds/3.jpg" alt="" />
             </div>
             <div className="card-back">
               <span>( 03 )</span>
-              <p>Interactive Web Experience</p>
+              <div className="card-label">
+                <p>Projects</p>
+              </div>
+              <button
+                className="close-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClose();
+                }}
+              >
+                ✕
+              </button>
+              <div className="card-detail">
+                <div className="detail-entry">
+                  <h3>Project One</h3>
+                  <span className="detail-meta">React &middot; Node.js &middot; PostgreSQL</span>
+                  <p>
+                    A full-stack application for managing tasks with real-time
+                    collaboration features.
+                  </p>
+                </div>
+                <div className="detail-entry">
+                  <h3>Project Two</h3>
+                  <span className="detail-meta">TypeScript &middot; GSAP &middot; Three.js</span>
+                  <p>
+                    An interactive 3D portfolio site with scroll-driven
+                    animations and immersive transitions.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* --- Outro --- */}
       <section className="outro">
-        <h1>every transition leaves a trace</h1>
+        <div className="outro-content">
+          <h1>let's connect</h1>
+          <div className="outro-links">
+            <a
+              href="https://github.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://linkedin.com/in/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a href="mailto:your@email.com">Email</a>
+          </div>
+        </div>
       </section>
     </div>
   );
