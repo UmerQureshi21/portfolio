@@ -5,9 +5,9 @@
 :root {
   --bg: rgb(0, 0, 0);
   --fg: #fff;
-  --card-1: #35ff50;
-  --card-2: #f12a2a;
-  --card-3: #293df0;
+  --card-1: #2a2a2a;
+  --card-2: #353535;
+  --card-3: #494949;
 }
 
 /* GSAP pin-spacer overflow fix */
