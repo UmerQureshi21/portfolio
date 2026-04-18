@@ -6,6 +6,7 @@ import Intro from "./components/Intro";
 import Outro from "./components/Outro";
 import Card, { type DetailEntry } from "./components/Card";
 import ThemeToggle from "./components/ThemeToggle";
+import MobileView from "./components/MobileView";
 
 const workDetails: DetailEntry[] = [
   {
@@ -88,6 +89,17 @@ const outroLinks = [
 ];
 
 function App() {
+  const [isMobile, setIsMobile] = useState(
+    () => window.matchMedia("(max-width: 999px)").matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 999px)");
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const expandedCardRef = useRef<string | null>(null);
@@ -464,6 +476,22 @@ function App() {
     };
   }, []);
 
+  if (isMobile) {
+    return (
+      <>
+        <ThemeToggle />
+        <MobileView
+          name="Hi, I'm Umer Qureshi"
+          subtitle="Computer Science @ McMaster University"
+          workDetails={workDetails}
+          educationDetails={educationDetails}
+          projectDetails={projectDetails}
+          outroLinks={outroLinks}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="bg-[var(--bg)] font-[Poppins,sans-serif]">
       <ThemeToggle />
@@ -480,14 +508,14 @@ function App() {
       <Intro name="Hi, I'm Umer Qureshi!" role="" about="" />
 
       {/* --- Sticky card section --- */}
-      <section className="sticky relative w-full h-svh max-[1000px]:h-auto p-8 max-[1000px]:py-16 bg-[var(--bg)] text-[var(--fg)] flex justify-center items-center max-[1000px]:flex-col overflow-visible">
-        <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-[1000px]:relative max-[1000px]:top-0 max-[1000px]:left-0 max-[1000px]:translate-x-0 max-[1000px]:translate-y-0 max-[1000px]:w-full max-[1000px]:mb-16">
-          <h1 className="mb-[40px] relative text-center text-[3rem] max-[1000px]:text-[2.5rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0 min-[1000px]:translate-y-[40px] min-[1000px]:opacity-0 max-[1000px]:!opacity-100 max-[1000px]:!translate-y-0">
+      <section className="sticky relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] flex justify-center items-center overflow-visible">
+        <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%]">
+          <h1 className="mb-[40px] relative text-center text-[3rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0">
             Computer Science @ McMaster University
           </h1>
         </div>
 
-        <div className="card-container relative w-[90%] max-[1000px]:w-full flex max-[1000px]:flex-col max-[1000px]:gap-8 [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
+        <div className="card-container relative w-[90%] flex [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
           <Card
             id="card-1"
             label="Work Experience"
