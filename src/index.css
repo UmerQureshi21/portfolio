@@ -10,6 +10,14 @@
   --card-3: #494949;
 }
 
+.light {
+  --bg: #fff;
+  --fg: rgb(0, 0, 0);
+  --card-1: #e0e0e0;
+  --card-2: #d0d0d0;
+  --card-3: #c0c0c0;
+}
+
 /* GSAP pin-spacer overflow fix */
 .pin-spacer,
 .pin-spacer > .sticky {

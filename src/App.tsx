@@ -5,50 +5,86 @@ import Lenis from "lenis";
 import Intro from "./components/Intro";
 import Outro from "./components/Outro";
 import Card, { type DetailEntry } from "./components/Card";
+import ThemeToggle from "./components/ThemeToggle";
 
 const workDetails: DetailEntry[] = [
   {
-    title: "Software Engineer",
-    meta: "Company Name — 2024-Present",
-    description:
-      "Built and maintained full-stack web applications. Collaborated with cross-functional teams to deliver features on tight deadlines.",
+    title: "Software Engineering Intern",
+    meta: "Municipal Property Assessment Corporation",
+    description: "",
+    logo: "/logos/mpac_logo.jpeg",
+    period: "May 2026 to Present",
   },
   {
-    title: "Frontend Developer Intern",
-    meta: "Another Company — 2023",
-    description:
-      "Developed responsive UI components and improved page load performance by 40%.",
+    title: "Research Assistant",
+    meta: "McMaster University",
+    description: "",
+    logo: "/logos/maclogo.png",
+    period: "Jan 2026 to May 2026",
+  },
+  {
+    title: "Chief Technology Officer",
+    meta: "Lexingworth Capital",
+    description: "",
+    logo: "/logos/mcmaster-investments.png",
+    period: "Sep 2025 to Present",
+  },
+  {
+    title: "Software Engineering Intern",
+    meta: "Ayro",
+    description: "",
+    logo: "/logos/ayro.png",
+    period: "May 2025 to Aug 2025",
   },
 ];
 
 const educationDetails: DetailEntry[] = [
   {
-    title: "B.S. Computer Science",
-    meta: "Your University — 2024",
-    description:
-      "Data Structures · Algorithms · Operating Systems · Databases · Software Engineering · Web Development",
+    title: "B.Sc. Computer Science",
+    meta: "McMaster University, Expected April 2028",
+    description: "",
+    logo: "/logos/maclogo.png",
+    tags: [
+      "Data Structures & Algorithms",
+      "Computer Architecture",
+      "Linux/Unix/C",
+      "Java/Python",
+      "Software Development",
+    ],
   },
 ];
 
 const projectDetails: DetailEntry[] = [
   {
-    title: "Project One",
-    meta: "React · Node.js · PostgreSQL",
-    description:
-      "A full-stack application for managing tasks with real-time collaboration features.",
+    title: "KarahiHub",
+    meta: "",
+    description: "South Asian recipe platform with RAG-powered AI assistant.",
+    github: "https://github.com/UmerQureshi21",
+    deployedLink: "https://karahi-hub.vercel.app/",
+    tags: ["Java", "Spring Boot", "React", "TypeScript", "PostgreSQL"],
   },
   {
-    title: "Project Two",
-    meta: "TypeScript · GSAP · Three.js",
+    title: "TripSlice",
+    meta: "",
     description:
-      "An interactive 3D portfolio site with scroll-driven animations and immersive transitions.",
+      "AI vacation montage generator for trimming and combining videos.",
+    github: "https://github.com/UmerQureshi21",
+    deployedLink: "https://tidier-azure.vercel.app/",
+    tags: ["Java", "Spring Boot", "React", "TypeScript", "AWS", "Docker"],
+  },
+  {
+    title: "TrailSense",
+    meta: "",
+    description: "Mountain biking trail finder with semantic search and maps.",
+    github: "https://github.com/UmerQureshi21",
+    tags: ["Flask", "React", "TypeScript", "AWS", "MongoDB"],
   },
 ];
 
 const outroLinks = [
-  { label: "GitHub", href: "https://github.com/yourusername" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/yourusername" },
-  { label: "Email", href: "mailto:your@email.com" },
+  { label: "GitHub", href: "https://github.com/UmerQureshi21" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/umerqureshi-m" },
+  { label: "Email", href: "mailto:umerqis21@gmail.com" },
 ];
 
 function App() {
@@ -116,6 +152,7 @@ function App() {
 
       gsap.to(`#${cardId} .card-detail`, {
         opacity: 1,
+        pointerEvents: "auto",
         delay: 0.3,
         duration: 0.4,
         ease: "power2.out",
@@ -151,6 +188,7 @@ function App() {
 
     gsap.to(`#${cardId} .card-detail`, {
       opacity: 0,
+      pointerEvents: "none",
       duration: 0.3,
       ease: "power2.in",
     });
@@ -428,33 +466,30 @@ function App() {
 
   return (
     <div className="bg-[var(--bg)] font-[Poppins,sans-serif]">
+      <ThemeToggle />
+
       {/* --- Progress bar --- */}
       <div className="fixed top-0 left-0 w-full h-[3px] z-50">
         <div
           ref={progressBarRef}
-          className="h-full w-full bg-white origin-left"
+          className="h-full w-full bg-[var(--fg)] origin-left"
           style={{ transform: "scaleX(0)" }}
         />
       </div>
 
-      <Intro
-        name="Hi, I'm Umer Qureshi"
-        role="Computer Science @ McMaster University"
-        about=""
-      />
+      <Intro name="Hi, I'm Umer Qureshi!" role="" about="" />
 
       {/* --- Sticky card section --- */}
       <section className="sticky relative w-full h-svh max-[1000px]:h-auto p-8 max-[1000px]:py-16 bg-[var(--bg)] text-[var(--fg)] flex justify-center items-center max-[1000px]:flex-col overflow-visible">
-        <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 max-[1000px]:relative max-[1000px]:top-0 max-[1000px]:left-0 max-[1000px]:translate-x-0 max-[1000px]:translate-y-0 max-[1000px]:mb-16">
-          <h1 className="mb-[80px] relative text-center text-[4rem] max-[1000px]:text-[3rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0 min-[1000px]:translate-y-[40px] min-[1000px]:opacity-0 max-[1000px]:!opacity-100 max-[1000px]:!translate-y-0">
-            Background & Experience
+        <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-[1000px]:relative max-[1000px]:top-0 max-[1000px]:left-0 max-[1000px]:translate-x-0 max-[1000px]:translate-y-0 max-[1000px]:w-full max-[1000px]:mb-16">
+          <h1 className="mb-[40px] relative text-center text-[3rem] max-[1000px]:text-[2.5rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0 min-[1000px]:translate-y-[40px] min-[1000px]:opacity-0 max-[1000px]:!opacity-100 max-[1000px]:!translate-y-0">
+            Computer Science @ McMaster University
           </h1>
         </div>
 
         <div className="card-container relative w-[90%] max-[1000px]:w-full flex max-[1000px]:flex-col max-[1000px]:gap-8 [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
           <Card
             id="card-1"
-            index="01"
             label="Work Experience"
             image="/thirds/1.jpg"
             bgColor="card-1"
@@ -465,7 +500,6 @@ function App() {
           />
           <Card
             id="card-2"
-            index="02"
             label="Education"
             image="/thirds/2.jpg"
             bgColor="card-2"
@@ -475,7 +509,6 @@ function App() {
           />
           <Card
             id="card-3"
-            index="03"
             label="Projects"
             image="/thirds/3.jpg"
             bgColor="card-3"
