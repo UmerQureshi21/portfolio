@@ -4,17 +4,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
 function App() {
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const expandedCardRef = useRef<string | null>(null);
+  const expandTimestampRef = useRef(0);
   const flipCompleteRef = useRef(false);
+  const scrollProgressRef = useRef(0);
   const handleCloseRef = useRef<() => void>(() => {});
 
   const handleCardClick = useCallback(
     (cardId: string) => {
       if (!flipCompleteRef.current || expandedCard) return;
+      // Only allow expanding when cards are fully centered on screen
+      if (scrollProgressRef.current > 0.99) return;
 
       setExpandedCard(cardId);
       expandedCardRef.current = cardId;
+      expandTimestampRef.current = Date.now();
 
       const otherCards = ["#card-1", "#card-2", "#card-3"].filter(
         (id) => id !== `#${cardId}`
@@ -29,7 +35,14 @@ function App() {
         gsap.set(id, { pointerEvents: "none" });
       });
 
-      // Calculate X offset to center the card in the container
+      // Hide the sticky header
+      gsap.to(".sticky-header", {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+
+      // Calculate offsets to center the card in the viewport
       const cardEl = document.getElementById(cardId);
       const container = document.querySelector(".card-container");
       if (cardEl && container) {
@@ -39,10 +52,16 @@ function App() {
         const containerCenter = containerRect.left + containerRect.width / 2;
         const xOffset = containerCenter - cardCenter;
 
+        const scale = 1.4;
+        const currentY = Number(gsap.getProperty(cardEl, "y")) || 0;
+        const naturalTop = cardRect.top - currentY;
+        const scaledHeight = cardRect.height * scale;
+        const yOffset = (window.innerHeight - scaledHeight) / 2 - naturalTop;
+
         gsap.to(`#${cardId}`, {
-          scale: 1.6,
+          scale,
           x: xOffset,
-          y: 0,
+          y: yOffset,
           rotateZ: 0,
           duration: 0.6,
           ease: "power3.out",
@@ -98,9 +117,18 @@ function App() {
       ease: "power2.out",
     });
 
+    // Show the sticky header again
+    gsap.to(".sticky-header", {
+      opacity: 1,
+      delay: 0.3,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+
     // Restore original tilt and position
     const originalY = 20;
-    const originalRotateZ = cardId === "card-1" ? -3 : cardId === "card-3" ? 3 : 0;
+    const originalRotateZ =
+      cardId === "card-1" ? -3 : cardId === "card-3" ? 3 : 0;
 
     gsap.to(`#${cardId}`, {
       scale: 1,
@@ -135,6 +163,11 @@ function App() {
 
     const lenis = new Lenis();
     lenis.on("scroll", ScrollTrigger.update);
+    lenis.on("scroll", ({ progress }: { progress: number }) => {
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${progress})`;
+      }
+    });
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
@@ -174,9 +207,14 @@ function App() {
           pinSpacing: true,
           onUpdate: (self) => {
             const progress = self.progress;
+            scrollProgressRef.current = progress;
 
-            // --- Auto-close expanded card on scroll ---
-            if (expandedCardRef.current && self.direction === -1) {
+            // --- Auto-close expanded card on scroll (with 600ms guard) ---
+            if (
+              expandedCardRef.current &&
+              self.direction === -1 &&
+              Date.now() - expandTimestampRef.current > 600
+            ) {
               handleCloseRef.current();
             }
 
@@ -354,13 +392,25 @@ function App() {
   }, []);
 
   return (
-    <div className="poppins-font">
+    <div className="font-[Poppins,sans-serif]">
+      {/* --- Progress bar --- */}
+      <div className="fixed top-0 left-0 w-full h-[3px] z-50">
+        <div
+          ref={progressBarRef}
+          className="h-full w-full bg-white origin-left"
+          style={{ transform: "scaleX(0)" }}
+        />
+      </div>
       {/* --- Intro --- */}
-      <section className="intro">
-        <div className="intro-content">
-          <h1>Your Name</h1>
-          <p className="intro-role">Software Developer</p>
-          <p className="intro-about">
+      <section className="relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] text-center content-center">
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="text-[4rem] max-[1000px]:text-[2.5rem] font-medium leading-none w-[30%] max-[1000px]:w-full mx-auto">
+            Your Name
+          </h1>
+          <p className="text-[1.2rem] font-light opacity-60 tracking-[0.2em] uppercase">
+            Software Developer
+          </p>
+          <p className="text-[1.1rem] font-light opacity-70 max-w-[500px] max-[1000px]:max-w-full leading-relaxed">
             Building thoughtful digital experiences with clean code and creative
             problem solving.
           </p>
@@ -368,28 +418,30 @@ function App() {
       </section>
 
       {/* --- Sticky card section --- */}
-      <section className="sticky">
-        <div className="sticky-header">
-          <h1>what I bring to the table</h1>
+      <section className="sticky relative w-full h-svh max-[1000px]:h-auto p-8 max-[1000px]:py-16 bg-[var(--bg)] text-[var(--fg)] flex justify-center items-center max-[1000px]:flex-col overflow-visible">
+        <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 max-[1000px]:relative max-[1000px]:top-0 max-[1000px]:left-0 max-[1000px]:translate-x-0 max-[1000px]:translate-y-0 max-[1000px]:mb-16">
+          <h1 className="relative text-center text-[4rem] max-[1000px]:text-[3rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0 min-[1000px]:translate-y-[40px] min-[1000px]:opacity-0 max-[1000px]:!opacity-100 max-[1000px]:!translate-y-0">
+            what I bring to the table
+          </h1>
         </div>
 
-        <div className="card-container">
+        <div className="card-container relative w-[90%] max-[1000px]:w-full flex max-[1000px]:flex-col max-[1000px]:gap-8 [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
           {/* Card 1 — Work Experience */}
           <div
-            className="card"
+            className="card relative flex-1 aspect-[400/521] [transform-style:preserve-3d] origin-top cursor-pointer rounded-l-[20px] max-[1000px]:w-full max-[1000px]:max-w-[400px] max-[1000px]:mx-auto max-[1000px]:!rounded-[20px]"
             id="card-1"
             onClick={() => handleCardClick("card-1")}
           >
-            <div className="card-front">
-              <img src="/thirds/1.jpg" alt="" />
+            <div className="card-front absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden">
+              <img className="w-full h-full object-cover" src="/thirds/1.jpg" alt="" />
             </div>
-            <div className="card-back">
-              <span>( 01 )</span>
+            <div className="card-back absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden flex justify-center items-center text-center [transform:rotateY(180deg)] p-8 bg-[var(--card-1)] text-[var(--bg)]">
+              <span className="absolute top-8 left-8 opacity-40">( 01 )</span>
               <div className="card-label">
-                <p>Work Experience</p>
+                <p className="text-[1.8rem] font-medium leading-none">Work Experience</p>
               </div>
               <button
-                className="close-btn"
+                className="close-btn absolute top-5 right-5 bg-transparent border-2 border-current text-inherit w-8 h-8 rounded-full text-sm cursor-pointer opacity-0 z-20 flex items-center justify-center hover:bg-white/15"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleClose();
@@ -397,20 +449,24 @@ function App() {
               >
                 ✕
               </button>
-              <div className="card-detail">
-                <div className="detail-entry">
-                  <h3>Software Engineer</h3>
-                  <span className="detail-meta">Company Name — 2024-Present</span>
-                  <p>
+              <div className="card-detail absolute inset-0 pt-14 px-8 pb-8 opacity-0 pointer-events-none overflow-y-auto text-left flex flex-col gap-6">
+                <div className="detail-entry border-b border-black/15 pb-5 last:border-b-0">
+                  <h3 className="text-base font-semibold mb-1">Software Engineer</h3>
+                  <span className="text-[0.7rem] opacity-50 block mb-2 tracking-wide">
+                    Company Name — 2024-Present
+                  </span>
+                  <p className="text-[0.75rem] font-light leading-relaxed opacity-85">
                     Built and maintained full-stack web applications. Collaborated
                     with cross-functional teams to deliver features on tight
                     deadlines.
                   </p>
                 </div>
-                <div className="detail-entry">
-                  <h3>Frontend Developer Intern</h3>
-                  <span className="detail-meta">Another Company — 2023</span>
-                  <p>
+                <div className="detail-entry border-b border-black/15 pb-5 last:border-b-0">
+                  <h3 className="text-base font-semibold mb-1">Frontend Developer Intern</h3>
+                  <span className="text-[0.7rem] opacity-50 block mb-2 tracking-wide">
+                    Another Company — 2023
+                  </span>
+                  <p className="text-[0.75rem] font-light leading-relaxed opacity-85">
                     Developed responsive UI components and improved page load
                     performance by 40%.
                   </p>
@@ -420,19 +476,26 @@ function App() {
           </div>
 
           {/* Card 2 — Education */}
-          <div className="card" id="card-2">
-            <div className="card-front">
-              <img src="/thirds/2.jpg" alt="" />
+          <div
+            className="card relative flex-1 aspect-[400/521] [transform-style:preserve-3d] origin-top max-[1000px]:w-full max-[1000px]:max-w-[400px] max-[1000px]:mx-auto max-[1000px]:!rounded-[20px]"
+            id="card-2"
+          >
+            <div className="card-front absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden">
+              <img className="w-full h-full object-cover" src="/thirds/2.jpg" alt="" />
             </div>
-            <div className="card-back">
-              <span>( 02 )</span>
+            <div className="card-back absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden flex justify-center items-center text-center [transform:rotateY(180deg)] p-8 bg-[var(--card-2)]">
+              <span className="absolute top-8 left-8 opacity-40">( 02 )</span>
               <div className="card-label">
-                <p>Education</p>
+                <p className="text-[1.8rem] font-medium leading-none">Education</p>
               </div>
-              <div className="edu-content">
-                <h3>B.S. Computer Science</h3>
-                <span className="detail-meta">Your University — 2024</span>
-                <p className="coursework">
+              <div className="absolute bottom-8 left-8 right-8 text-left">
+                <h3 className="text-[1.1rem] max-[1000px]:text-[1rem] font-semibold mb-1">
+                  B.S. Computer Science
+                </h3>
+                <span className="text-[0.75rem] opacity-60 block mb-2">
+                  Your University — 2024
+                </span>
+                <p className="text-[0.7rem] font-light leading-relaxed opacity-80">
                   Data Structures &middot; Algorithms &middot; Operating Systems
                   &middot; Databases &middot; Software Engineering &middot; Web
                   Development
@@ -443,20 +506,20 @@ function App() {
 
           {/* Card 3 — Projects */}
           <div
-            className="card"
+            className="card relative flex-1 aspect-[400/521] [transform-style:preserve-3d] origin-top cursor-pointer rounded-r-[20px] max-[1000px]:w-full max-[1000px]:max-w-[400px] max-[1000px]:mx-auto max-[1000px]:!rounded-[20px]"
             id="card-3"
             onClick={() => handleCardClick("card-3")}
           >
-            <div className="card-front">
-              <img src="/thirds/3.jpg" alt="" />
+            <div className="card-front absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden">
+              <img className="w-full h-full object-cover" src="/thirds/3.jpg" alt="" />
             </div>
-            <div className="card-back">
-              <span>( 03 )</span>
+            <div className="card-back absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden flex justify-center items-center text-center [transform:rotateY(180deg)] p-8 bg-[var(--card-3)]">
+              <span className="absolute top-8 left-8 opacity-40">( 03 )</span>
               <div className="card-label">
-                <p>Projects</p>
+                <p className="text-[1.8rem] font-medium leading-none">Projects</p>
               </div>
               <button
-                className="close-btn"
+                className="close-btn absolute top-5 right-5 bg-transparent border-2 border-current text-inherit w-8 h-8 rounded-full text-sm cursor-pointer opacity-0 z-20 flex items-center justify-center hover:bg-white/15"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleClose();
@@ -464,19 +527,23 @@ function App() {
               >
                 ✕
               </button>
-              <div className="card-detail">
-                <div className="detail-entry">
-                  <h3>Project One</h3>
-                  <span className="detail-meta">React &middot; Node.js &middot; PostgreSQL</span>
-                  <p>
+              <div className="card-detail absolute inset-0 pt-14 px-8 pb-8 opacity-0 pointer-events-none overflow-y-auto text-left flex flex-col gap-6">
+                <div className="detail-entry border-b border-white/15 pb-5 last:border-b-0">
+                  <h3 className="text-base font-semibold mb-1">Project One</h3>
+                  <span className="text-[0.7rem] opacity-50 block mb-2 tracking-wide">
+                    React &middot; Node.js &middot; PostgreSQL
+                  </span>
+                  <p className="text-[0.75rem] font-light leading-relaxed opacity-85">
                     A full-stack application for managing tasks with real-time
                     collaboration features.
                   </p>
                 </div>
-                <div className="detail-entry">
-                  <h3>Project Two</h3>
-                  <span className="detail-meta">TypeScript &middot; GSAP &middot; Three.js</span>
-                  <p>
+                <div className="detail-entry border-b border-white/15 pb-5 last:border-b-0">
+                  <h3 className="text-base font-semibold mb-1">Project Two</h3>
+                  <span className="text-[0.7rem] opacity-50 block mb-2 tracking-wide">
+                    TypeScript &middot; GSAP &middot; Three.js
+                  </span>
+                  <p className="text-[0.75rem] font-light leading-relaxed opacity-85">
                     An interactive 3D portfolio site with scroll-driven
                     animations and immersive transitions.
                   </p>
@@ -488,14 +555,17 @@ function App() {
       </section>
 
       {/* --- Outro --- */}
-      <section className="outro">
-        <div className="outro-content">
-          <h1>let's connect</h1>
-          <div className="outro-links">
+      <section className="relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] text-center content-center">
+        <div className="flex flex-col items-center gap-8">
+          <h1 className="text-[4rem] max-[1000px]:text-[3rem] font-medium leading-none w-[30%] max-[1000px]:w-full mx-auto">
+            let's connect
+          </h1>
+          <div className="flex max-[1000px]:flex-col max-[1000px]:items-center gap-10 max-[1000px]:gap-6">
             <a
               href="https://github.com/yourusername"
               target="_blank"
               rel="noopener noreferrer"
+              className="text-[var(--fg)] no-underline text-[1.1rem] font-normal opacity-70 tracking-widest uppercase transition-opacity duration-300 hover:opacity-100"
             >
               GitHub
             </a>
@@ -503,10 +573,16 @@ function App() {
               href="https://linkedin.com/in/yourusername"
               target="_blank"
               rel="noopener noreferrer"
+              className="text-[var(--fg)] no-underline text-[1.1rem] font-normal opacity-70 tracking-widest uppercase transition-opacity duration-300 hover:opacity-100"
             >
               LinkedIn
             </a>
-            <a href="mailto:your@email.com">Email</a>
+            <a
+              href="mailto:your@email.com"
+              className="text-[var(--fg)] no-underline text-[1.1rem] font-normal opacity-70 tracking-widest uppercase transition-opacity duration-300 hover:opacity-100"
+            >
+              Email
+            </a>
           </div>
         </div>
       </section>
