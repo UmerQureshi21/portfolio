@@ -3,39 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --bg-page: rgb(255, 255, 255);
-  --bg-card: rgb(230, 230, 230);
-  --text-primary: black;
-  --text-secondary: rgb(80, 80, 80);
-  --accent: rgb(231, 44, 44);
-  --accent-hover: rgb(211, 54, 54);
-  --toggle-border: black;
-  --toggle-bg: rgb(240, 240, 240);
+  --bg: rgb(0, 0, 0);
+  --fg: #fff;
+  --card-1: #2a2a2a;
+  --card-2: #353535;
+  --card-3: #494949;
 }
 
-html.dark {
-  --bg-page: black;
-  --bg-card: rgb(20, 20, 20);
-  --text-primary: white;
-  --text-secondary: rgb(200, 200, 200);
-  --accent: rgb(231, 74, 74);
-  --accent-hover: rgb(211, 54, 54);
-  --toggle-border: white;
-  --toggle-bg: var(--accent);
+.light {
+  --bg: #fff;
+  --fg: rgb(0, 0, 0);
+  --card-1: #e0e0e0;
+  --card-2: #d0d0d0;
+  --card-3: #c0c0c0;
 }
 
-.accent-text { color: var(--accent); }
-.accent-bg { background-color: var(--accent); }
-.accent-bg-hover:hover { background-color: var(--accent-hover); }
-.accent-border { border-color: var(--accent); }
-.accent-text-hover:hover { color: var(--accent); }
-
-* {
-  box-sizing: border-box;
+/* GSAP pin-spacer overflow fix */
+.pin-spacer,
+.pin-spacer > .sticky {
+  overflow: visible !important;
 }
-
-.poppins-font {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-}
-
