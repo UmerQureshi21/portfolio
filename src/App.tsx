@@ -5,13 +5,16 @@ import Lenis from "lenis";
 
 function App() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const expandedCardRef = useRef<string | null>(null);
   const flipCompleteRef = useRef(false);
+  const handleCloseRef = useRef<() => void>(() => {});
 
   const handleCardClick = useCallback(
     (cardId: string) => {
       if (!flipCompleteRef.current || expandedCard) return;
 
       setExpandedCard(cardId);
+      expandedCardRef.current = cardId;
 
       const otherCards = ["#card-1", "#card-2", "#card-3"].filter(
         (id) => id !== `#${cardId}`
@@ -121,7 +124,11 @@ function App() {
     });
 
     setExpandedCard(null);
+    expandedCardRef.current = null;
   }, [expandedCard]);
+
+  // Keep the ref in sync so the scroll handler can call it
+  handleCloseRef.current = handleClose;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -167,6 +174,11 @@ function App() {
           pinSpacing: true,
           onUpdate: (self) => {
             const progress = self.progress;
+
+            // --- Auto-close expanded card on scroll ---
+            if (expandedCardRef.current && self.direction === -1) {
+              handleCloseRef.current();
+            }
 
             // --- Header slide-in (10% - 25%) ---
             if (progress >= 0.1 && progress <= 0.25) {
