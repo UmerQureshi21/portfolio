@@ -233,9 +233,6 @@ function App() {
       ease: "power3.out",
       zIndex: 0,
       overwrite: true,
-      onComplete: () => {
-        gsap.set(`#${cardId}`, { clearProps: "scale,x,zIndex" });
-      },
     });
 
     otherCards.forEach((id) => {

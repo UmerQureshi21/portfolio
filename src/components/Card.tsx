@@ -56,7 +56,21 @@ export default function Card({
         className={`card-back absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden flex justify-center items-center text-center [transform:rotateY(180deg)] p-8 ${darkText ? "text-[var(--bg)]" : ""}`}
         style={{ backgroundColor: `var(--${bgColor})` }}
       >
-        <div className="card-label">
+        {/* Glassmorphism + noise overlay */}
+        <div
+          className="absolute inset-0 rounded-[inherit] backdrop-blur-[2px] border border-white/10"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.04) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 rounded-[inherit] opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: "128px 128px",
+          }}
+        />
+        <div className="card-label relative z-10">
           <p className="text-[1.8rem] font-medium leading-none">{label}</p>
         </div>
         <button
@@ -68,7 +82,7 @@ export default function Card({
         >
           ✕
         </button>
-        <div data-lenis-prevent className="card-detail absolute inset-0 pt-6 px-8 pb-8 opacity-0 pointer-events-none overflow-y-auto text-left flex flex-col gap-3">
+        <div data-lenis-prevent className="card-detail absolute inset-0 z-10 pt-6 px-8 pb-8 opacity-0 pointer-events-none overflow-y-auto text-left flex flex-col gap-3">
           {details.map((entry, i) => (
             <div
               key={i}
