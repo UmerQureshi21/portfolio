@@ -14,28 +14,29 @@ const workDetails: DetailEntry[] = [
     meta: "Municipal Property Assessment Corporation",
     description: "",
     logo: "/logos/mpac_logo.jpeg",
+    logoLink: "https://mpac.ca/",
+    website: "https://mpac.ca/",
+    linkedin: "https://www.linkedin.com/company/mpac/posts/?feedView=all",
     period: "May 2026 to Present",
-  },
-  {
-    title: "Research Assistant",
-    meta: "McMaster University",
-    description: "",
-    logo: "/logos/maclogo.png",
-    period: "Jan 2026 to May 2026",
-  },
-  {
-    title: "Chief Technology Officer",
-    meta: "Lexingworth Capital",
-    description: "",
-    logo: "/logos/mcmaster-investments.png",
-    period: "Sep 2025 to Present",
   },
   {
     title: "Software Engineering Intern",
     meta: "Ayro",
     description: "",
     logo: "/logos/ayro.png",
+    logoLink: "https://www.ayro.vc/",
+    website: "https://www.ayro.vc/",
+    linkedin: "https://www.linkedin.com/company/ayro1/posts/?feedView=all",
     period: "May 2025 to Aug 2025",
+  },
+  {
+    title: "Teaching Assistant",
+    meta: "Morton Way Public School",
+    description: "",
+    logo: "/logos/morton-way.png",
+    logoLink: "https://mortonway.peelschools.org/",
+    website: "https://mortonway.peelschools.org/",
+    period: "Jan 2023 to Aug 2023",
   },
 ];
 
@@ -52,6 +53,20 @@ const educationDetails: DetailEntry[] = [
       "Java/Python",
       "Software Development",
     ],
+  },
+  {
+    title: "Research Assistant",
+    meta: "McMaster University",
+    description: "",
+    period: "Jan 2026 to May 2026",
+  },
+  {
+    title: "Chief Technology Officer",
+    meta: "McMaster Investments Club",
+    description: "",
+    website: "https://www.lexingworth.com/",
+    linkedin: "https://www.linkedin.com/company/lexingworth/posts/?feedView=all",
+    period: "Sep 2025 to Present",
   },
 ];
 
@@ -175,11 +190,6 @@ function App() {
         ease: "power2.out",
       });
 
-      gsap.to(`#${cardId} .close-btn`, {
-        opacity: 1,
-        delay: 0.4,
-        duration: 0.3,
-      });
     },
     [expandedCard],
   );
@@ -191,11 +201,6 @@ function App() {
     const otherCards = ["#card-1", "#card-2", "#card-3"].filter(
       (id) => id !== `#${cardId}`,
     );
-
-    gsap.to(`#${cardId} .close-btn`, {
-      opacity: 0,
-      duration: 0.2,
-    });
 
     gsap.to(`#${cardId} .front-detail`, {
       opacity: 0,
@@ -221,7 +226,11 @@ function App() {
     const isFlipped = flipCompleteRef.current;
     const originalY = isFlipped ? 20 : 0;
     const originalRotateZ = isFlipped
-      ? cardId === "card-1" ? -3 : cardId === "card-3" ? 3 : 0
+      ? cardId === "card-1"
+        ? -3
+        : cardId === "card-3"
+          ? 3
+          : 0
       : 0;
 
     gsap.to(`#${cardId}`, {
@@ -342,10 +351,9 @@ function App() {
 
             if (progress >= 0.4 && !isFlipAnimationCompleted) {
               // Reset any expanded front-detail before flipping
-              gsap.killTweensOf(".front-detail, .front-label, .close-btn");
+              gsap.killTweensOf(".front-detail, .front-label");
               gsap.set(".front-detail", { opacity: 0, pointerEvents: "none" });
               gsap.set(".front-label", { opacity: 1 });
-              gsap.set(".close-btn", { opacity: 0 });
               expandedCardRef.current = null;
 
               gsap.to(".card", {
@@ -375,10 +383,9 @@ function App() {
 
             if (progress < 0.4 && isFlipAnimationCompleted) {
               // Kill stale close-animation tweens and reset overlays
-              gsap.killTweensOf(".front-detail, .front-label, .close-btn");
+              gsap.killTweensOf(".front-detail, .front-label");
               gsap.set(".front-detail", { opacity: 0, pointerEvents: "none" });
               gsap.set(".front-label", { opacity: 1 });
-              gsap.set(".close-btn", { opacity: 0 });
               expandedCardRef.current = null;
 
               gsap.to(".card", {
@@ -480,7 +487,22 @@ function App() {
             id="card-1"
             label="Work Experience"
             bgColor="card-1"
-            icon={<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><line x1="12" y1="12" x2="12" y2="12.01" /></svg>}
+            icon={
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                <line x1="12" y1="12" x2="12" y2="12.01" />
+              </svg>
+            }
             details={workDetails}
             onCardClick={handleCardClick}
             onClose={handleClose}
@@ -489,7 +511,21 @@ function App() {
             id="card-2"
             label="Education"
             bgColor="card-2"
-            icon={<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" /></svg>}
+            icon={
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" />
+              </svg>
+            }
             details={educationDetails}
             onCardClick={handleCardClick}
             onClose={handleClose}
@@ -498,7 +534,22 @@ function App() {
             id="card-3"
             label="Projects"
             bgColor="card-3"
-            icon={<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="m2 17 10 5 10-5" /><path d="m2 12 10 5 10-5" /></svg>}
+            icon={
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="m2 17 10 5 10-5" />
+                <path d="m2 12 10 5 10-5" />
+              </svg>
+            }
             details={projectDetails}
             onCardClick={handleCardClick}
             onClose={handleClose}
