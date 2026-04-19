@@ -12,7 +12,6 @@ export interface DetailEntry {
 interface CardProps {
   id: string;
   label: string;
-  image: string;
   bgColor: string;
   darkText?: boolean;
   roundedSide?: "left" | "right";
@@ -24,7 +23,6 @@ interface CardProps {
 export default function Card({
   id,
   label,
-  image,
   bgColor,
   darkText,
   roundedSide,
@@ -49,8 +47,24 @@ export default function Card({
       id={id}
       onClick={() => onCardClick(id)}
     >
-      <div className="card-front absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden">
-        <img className="w-full h-full object-cover" src={image} alt="" />
+      <div
+        className="card-front absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden flex justify-center items-center text-center p-8"
+        style={{ backgroundColor: `var(--${bgColor})` }}
+      >
+        <div
+          className="absolute inset-0 rounded-[inherit] backdrop-blur-[2px] border border-white/10"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.04) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 rounded-[inherit] opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: "128px 128px",
+          }}
+        />
+        <p className="relative z-10 text-[1.8rem] font-medium leading-none">{label}</p>
       </div>
       <div
         className={`card-back absolute w-full h-full [backface-visibility:hidden] rounded-[inherit] overflow-hidden flex justify-center items-center text-center [transform:rotateY(180deg)] p-8 ${darkText ? "text-[var(--bg)]" : ""}`}

@@ -507,13 +507,17 @@ function App() {
         />
       </div>
 
-      <Intro name="Hi, I'm Umer Qureshi!" role="" about="" />
+      <Intro
+        name="Hi, I'm Umer Qureshi!"
+        role="Computer Science @ McMaster University"
+        about=""
+      />
 
       {/* --- Sticky card section --- */}
       <section className="sticky relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] flex justify-center items-center overflow-visible">
         <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%]">
           <h1 className="mb-[40px] relative text-center text-[3rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0">
-            Computer Science @ McMaster University
+            Background & Experiences
           </h1>
         </div>
 
@@ -521,7 +525,6 @@ function App() {
           <Card
             id="card-1"
             label="Work Experience"
-            image="/thirds/1.jpg"
             bgColor="card-1"
             roundedSide="left"
             details={workDetails}
@@ -531,7 +534,6 @@ function App() {
           <Card
             id="card-2"
             label="Education"
-            image="/thirds/2.jpg"
             bgColor="card-2"
             details={educationDetails}
             onCardClick={handleCardClick}
@@ -540,7 +542,6 @@ function App() {
           <Card
             id="card-3"
             label="Projects"
-            image="/thirds/3.jpg"
             bgColor="card-3"
             roundedSide="right"
             details={projectDetails}
