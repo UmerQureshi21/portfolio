@@ -65,7 +65,8 @@ const educationDetails: DetailEntry[] = [
     meta: "McMaster Investments Club",
     description: "",
     website: "https://www.lexingworth.com/",
-    linkedin: "https://www.linkedin.com/company/lexingworth/posts/?feedView=all",
+    linkedin:
+      "https://www.linkedin.com/company/lexingworth/posts/?feedView=all",
     period: "Sep 2025 to Present",
   },
 ];
@@ -189,7 +190,6 @@ function App() {
         duration: 0.2,
         ease: "power2.out",
       });
-
     },
     [expandedCard],
   );
@@ -489,18 +489,11 @@ function App() {
             bgColor="card-1"
             icon={
               <svg
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                className="cardIcon"
               >
-                <rect x="2" y="7" width="20" height="14" rx="2" />
-                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                <line x1="12" y1="12" x2="12" y2="12.01" />
+                <path d="M264 112L376 112C380.4 112 384 115.6 384 120L384 160L256 160L256 120C256 115.6 259.6 112 264 112zM208 120L208 544L432 544L432 120C432 89.1 406.9 64 376 64L264 64C233.1 64 208 89.1 208 120zM480 160L480 544L512 544C547.3 544 576 515.3 576 480L576 224C576 188.7 547.3 160 512 160L480 160zM160 544L160 160L128 160C92.7 160 64 188.7 64 224L64 480C64 515.3 92.7 544 128 544L160 544z" />
               </svg>
             }
             details={workDetails}
@@ -513,17 +506,11 @@ function App() {
             bgColor="card-2"
             icon={
               <svg
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                className="cardIcon"
               >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" />
+                <path d="M80 259.8L289.2 345.9C299 349.9 309.4 352 320 352C330.6 352 341 349.9 350.8 345.9L593.2 246.1C602.2 242.4 608 233.7 608 224C608 214.3 602.2 205.6 593.2 201.9L350.8 102.1C341 98.1 330.6 96 320 96C309.4 96 299 98.1 289.2 102.1L46.8 201.9C37.8 205.6 32 214.3 32 224L32 520C32 533.3 42.7 544 56 544C69.3 544 80 533.3 80 520L80 259.8zM128 331.5L128 448C128 501 214 544 320 544C426 544 512 501 512 448L512 331.4L369.1 390.3C353.5 396.7 336.9 400 320 400C303.1 400 286.5 396.7 270.9 390.3L128 331.4z" />
               </svg>
             }
             details={educationDetails}
@@ -536,18 +523,11 @@ function App() {
             bgColor="card-3"
             icon={
               <svg
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                className="cardIcon"
               >
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="m2 17 10 5 10-5" />
-                <path d="m2 12 10 5 10-5" />
+                <path d="M246.9 82.3L271 67.8C292.6 54.8 317.3 48 342.5 48C379.3 48 414.7 62.6 440.7 88.7L504.6 152.6C519.6 167.6 528 188 528 209.2L528 240.1L547.7 259.8L547.7 259.8C563.3 244.2 588.6 244.2 604.3 259.8C620 275.4 619.9 300.7 604.3 316.4L540.3 380.4C524.7 396 499.4 396 483.7 380.4C468 364.8 468.1 339.5 483.7 323.8L464 304L433.1 304C411.9 304 391.5 295.6 376.5 280.6L327.4 231.5C312.4 216.5 304 196.1 304 174.9L304 162.2C304 151 298.1 140.5 288.5 134.8L246.9 109.8C236.5 103.6 236.5 88.6 246.9 82.4zM50.7 466.7L272.8 244.6L363.3 335.1L141.2 557.2C116.2 582.2 75.7 582.2 50.7 557.2C25.7 532.2 25.7 491.7 50.7 466.7z" />
               </svg>
             }
             details={projectDetails}

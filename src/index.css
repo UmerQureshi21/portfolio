@@ -18,6 +18,10 @@
   --card-3: #c0c0c0;
 }
 
+.cardIcon {
+  fill: var(--fg);
+}
+
 /* GSAP pin-spacer overflow fix */
 .pin-spacer,
 .pin-spacer > .sticky {

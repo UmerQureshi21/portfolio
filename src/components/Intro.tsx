@@ -35,6 +35,7 @@ export default function Intro({ name, role, about }: IntroProps) {
             style={{ opacity: showCaret ? 1 : 0 }}
           />
         </h1>
+
         <p className="text-[1.2rem] font-light opacity-60 tracking-[0.2em] uppercase">
           {role}
         </p>
