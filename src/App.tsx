@@ -517,7 +517,7 @@ function App() {
           </h1>
         </div>
 
-        <div className="card-container relative w-[90%] flex [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
+        <div className="card-container relative w-[90%] flex gap-0 [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
           <Card
             id="card-1"
             label="Work Experience"
