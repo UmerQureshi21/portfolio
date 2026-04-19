@@ -30,6 +30,16 @@ const workDetails: DetailEntry[] = [
     period: "May 2025 to Aug 2025",
   },
   {
+    title: "K - 12 Mathematics Tutor",
+    meta: "One Step Forward",
+    description: "",
+    logo: "/logos/osftutors_logo.jpeg",
+    logoLink: "https://osftutors.com/",
+    website: "https://osftutors.com/",
+    linkedin: "https://www.linkedin.com/company/osftutors/posts/?feedView=all",
+    period: "Jan 2024 to Dec 2024",
+  },
+  {
     title: "Teaching Assistant",
     meta: "Morton Way Public School",
     description: "",
@@ -68,6 +78,22 @@ const educationDetails: DetailEntry[] = [
     linkedin:
       "https://www.linkedin.com/company/lexingworth/posts/?feedView=all",
     period: "Sep 2025 to Present",
+  },
+  {
+    title: "OSSD",
+    meta: "Brampton Centennial Secondary School",
+    description: "",
+    logo: "/logos/Brampton_Centennial_Secondary_School_logo.svg.png",
+    logoLink: "https://bramptoncentennial.peelschools.org/",
+    website: "https://bramptoncentennial.peelschools.org/",
+    tags: [
+      "Robotics Team Exec",
+      "DECA Treasurer",
+      "Grade 12 Advanced Functions Award",
+      "Grade 12 Computer Science Award",
+      "97.2% Average",
+    ],
+    period: "Sep 2020 to Jun 2024",
   },
 ];
 
