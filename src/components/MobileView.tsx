@@ -42,7 +42,7 @@ export default function MobileView({
   outroLinks,
 }: MobileViewProps) {
   return (
-    <div className="h-svh w-full bg-[var(--bg)] text-[var(--fg)] font-[Poppins,sans-serif] px-8 pt-16 pb-10 flex flex-col justify-between">
+    <div className="min-h-svh w-full bg-[var(--bg)] text-[var(--fg)] font-[Poppins,sans-serif] px-8 pt-16 pb-10 flex flex-col justify-between gap-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-[2rem] font-medium leading-tight">{name}</h1>
@@ -67,9 +67,37 @@ export default function MobileView({
                 />
               )}
               <div className="min-w-0 flex-1">
-                <p className="text-[0.8rem] font-medium leading-tight">
-                  {entry.title}
-                </p>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-[0.8rem] font-medium leading-tight">
+                    {entry.title}
+                  </p>
+                  {entry.website && (
+                    <a
+                      href={entry.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="opacity-40 hover:opacity-100 transition-opacity shrink-0"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                  )}
+                  {entry.linkedin && (
+                    <a
+                      href={entry.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="opacity-40 hover:opacity-100 transition-opacity shrink-0"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
                 <p className="text-[0.6rem] opacity-50">{entry.meta}</p>
               </div>
               {entry.period && (
@@ -87,23 +115,30 @@ export default function MobileView({
         <h2 className="text-[0.65rem] opacity-40 tracking-[0.2em] uppercase mb-2">
           Education
         </h2>
-        {educationDetails.map((entry, i) => (
-          <div key={i} className="flex items-center gap-3">
-            {entry.logo && (
-              <img
-                src={entry.logo}
-                alt=""
-                className="w-7 h-7 rounded-md object-contain bg-white/10 p-0.5 shrink-0"
-              />
-            )}
-            <div className="min-w-0">
-              <p className="text-[0.8rem] font-medium leading-tight">
-                {entry.title}
-              </p>
-              <p className="text-[0.6rem] opacity-50">{entry.meta}</p>
+        <div className="flex flex-col gap-2.5">
+          {educationDetails.map((entry, i) => (
+            <div key={i} className="flex items-center gap-3">
+              {entry.logo && (
+                <img
+                  src={entry.logo}
+                  alt=""
+                  className="w-7 h-7 rounded-md object-contain bg-white/10 p-0.5 shrink-0"
+                />
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="text-[0.8rem] font-medium leading-tight">
+                  {entry.title}
+                </p>
+                <p className="text-[0.6rem] opacity-50">{entry.meta}</p>
+              </div>
+              {entry.period && (
+                <span className="text-[0.5rem] px-2 py-0.5 rounded-full bg-white/10 opacity-60 shrink-0">
+                  {entry.period}
+                </span>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Projects */}

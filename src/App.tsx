@@ -65,7 +65,7 @@ const educationDetails: DetailEntry[] = [
     ],
   },
   {
-    title: "Research Assistant",
+    title: "Machine Learning Research Assistant",
     meta: "McMaster University",
     description: "",
     period: "Jan 2026 to May 2026",
@@ -471,7 +471,7 @@ function App() {
         <ThemeToggle />
         <MobileView
           name="Hi, I'm Umer Qureshi"
-          subtitle="Computer Science @ McMaster University"
+          subtitle="Always learning and building"
           workDetails={workDetails}
           educationDetails={educationDetails}
           projectDetails={projectDetails}
@@ -496,7 +496,7 @@ function App() {
 
       <Intro
         name="Hi, I'm Umer Qureshi!"
-        role="Computer Science @ McMaster University"
+        role="Always learning and building"
         about=""
       />
 
