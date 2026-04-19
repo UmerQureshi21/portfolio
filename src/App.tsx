@@ -232,6 +232,10 @@ function App() {
       delay: 0.2,
       ease: "power3.out",
       zIndex: 0,
+      overwrite: true,
+      onComplete: () => {
+        gsap.set(`#${cardId}`, { clearProps: "scale,x,zIndex" });
+      },
     });
 
     otherCards.forEach((id) => {
@@ -431,6 +435,7 @@ function App() {
                 duration: 1,
                 ease: "power3.out",
                 stagger: -0.15,
+                overwrite: "auto",
               });
 
               gsap.to("#card-1", {
