@@ -14,28 +14,29 @@ const workDetails: DetailEntry[] = [
     meta: "Municipal Property Assessment Corporation",
     description: "",
     logo: "/logos/mpac_logo.jpeg",
+    logoLink: "https://mpac.ca/",
+    website: "https://mpac.ca/",
+    linkedin: "https://www.linkedin.com/company/mpac/posts/?feedView=all",
     period: "May 2026 to Present",
-  },
-  {
-    title: "Research Assistant",
-    meta: "McMaster University",
-    description: "",
-    logo: "/logos/maclogo.png",
-    period: "Jan 2026 to May 2026",
-  },
-  {
-    title: "Chief Technology Officer",
-    meta: "Lexingworth Capital",
-    description: "",
-    logo: "/logos/mcmaster-investments.png",
-    period: "Sep 2025 to Present",
   },
   {
     title: "Software Engineering Intern",
     meta: "Ayro",
     description: "",
     logo: "/logos/ayro.png",
+    logoLink: "https://www.ayro.vc/",
+    website: "https://www.ayro.vc/",
+    linkedin: "https://www.linkedin.com/company/ayro1/posts/?feedView=all",
     period: "May 2025 to Aug 2025",
+  },
+  {
+    title: "Teaching Assistant",
+    meta: "Morton Way Public School",
+    description: "",
+    logo: "/logos/morton-way.png",
+    logoLink: "https://mortonway.peelschools.org/",
+    website: "https://mortonway.peelschools.org/",
+    period: "Jan 2023 to Aug 2023",
   },
 ];
 
@@ -52,6 +53,20 @@ const educationDetails: DetailEntry[] = [
       "Java/Python",
       "Software Development",
     ],
+  },
+  {
+    title: "Research Assistant",
+    meta: "McMaster University",
+    description: "",
+    period: "Jan 2026 to May 2026",
+  },
+  {
+    title: "Chief Technology Officer",
+    meta: "McMaster Investments Club",
+    description: "",
+    website: "https://www.lexingworth.com/",
+    linkedin: "https://www.linkedin.com/company/lexingworth/posts/?feedView=all",
+    period: "Sep 2025 to Present",
   },
 ];
 
@@ -110,8 +125,7 @@ function App() {
 
   const handleCardClick = useCallback(
     (cardId: string) => {
-      if (!flipCompleteRef.current || expandedCard) return;
-      if (scrollProgressRef.current > 0.99) return;
+      if (flipCompleteRef.current || expandedCard) return;
 
       setExpandedCard(cardId);
       expandedCardRef.current = cardId;
@@ -162,7 +176,7 @@ function App() {
         });
       }
 
-      gsap.to(`#${cardId} .card-detail`, {
+      gsap.to(`#${cardId} .front-detail`, {
         opacity: 1,
         pointerEvents: "auto",
         delay: 0.3,
@@ -170,17 +184,12 @@ function App() {
         ease: "power2.out",
       });
 
-      gsap.to(`#${cardId} .card-label`, {
+      gsap.to(`#${cardId} .front-label`, {
         opacity: 0,
         duration: 0.2,
         ease: "power2.out",
       });
 
-      gsap.to(`#${cardId} .close-btn`, {
-        opacity: 1,
-        delay: 0.4,
-        duration: 0.3,
-      });
     },
     [expandedCard],
   );
@@ -193,19 +202,14 @@ function App() {
       (id) => id !== `#${cardId}`,
     );
 
-    gsap.to(`#${cardId} .close-btn`, {
-      opacity: 0,
-      duration: 0.2,
-    });
-
-    gsap.to(`#${cardId} .card-detail`, {
+    gsap.to(`#${cardId} .front-detail`, {
       opacity: 0,
       pointerEvents: "none",
       duration: 0.3,
       ease: "power2.in",
     });
 
-    gsap.to(`#${cardId} .card-label`, {
+    gsap.to(`#${cardId} .front-label`, {
       opacity: 1,
       delay: 0.2,
       duration: 0.3,
@@ -219,9 +223,15 @@ function App() {
       ease: "power2.out",
     });
 
-    const originalY = 20;
-    const originalRotateZ =
-      cardId === "card-1" ? -3 : cardId === "card-3" ? 3 : 0;
+    const isFlipped = flipCompleteRef.current;
+    const originalY = isFlipped ? 20 : 0;
+    const originalRotateZ = isFlipped
+      ? cardId === "card-1"
+        ? -3
+        : cardId === "card-3"
+          ? 3
+          : 0
+      : 0;
 
     gsap.to(`#${cardId}`, {
       scale: 1,
@@ -232,6 +242,7 @@ function App() {
       delay: 0.2,
       ease: "power3.out",
       zIndex: 0,
+      overwrite: true,
     });
 
     otherCards.forEach((id) => {
@@ -265,12 +276,9 @@ function App() {
     });
     gsap.ticker.lagSmoothing(0);
 
-    const cardContainer =
-      document.querySelector<HTMLElement>(".card-container");
     const stickyHeader =
       document.querySelector<HTMLElement>(".sticky-header h1");
 
-    let isGapAnimationCompleted = false;
     let isFlipAnimationCompleted = false;
 
     function initAnimations() {
@@ -303,7 +311,6 @@ function App() {
 
             if (
               expandedCardRef.current &&
-              self.direction === -1 &&
               Date.now() - expandTimestampRef.current > 600
             ) {
               handleCloseRef.current();
@@ -342,64 +349,13 @@ function App() {
               });
             }
 
-            if (progress <= 0.25) {
-              const widthPercentage = gsap.utils.mapRange(
-                0,
-                0.25,
-                90,
-                75,
-                progress,
-              );
-              gsap.set(cardContainer, { width: `${widthPercentage}%` });
-            } else {
-              gsap.set(cardContainer, { width: "75%" });
-            }
+            if (progress >= 0.4 && !isFlipAnimationCompleted) {
+              // Reset any expanded front-detail before flipping
+              gsap.killTweensOf(".front-detail, .front-label");
+              gsap.set(".front-detail", { opacity: 0, pointerEvents: "none" });
+              gsap.set(".front-label", { opacity: 1 });
+              expandedCardRef.current = null;
 
-            if (progress >= 0.35 && !isGapAnimationCompleted) {
-              gsap.to(cardContainer, {
-                gap: "20px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to(["#card-1", "#card-2", "#card-3"], {
-                borderRadius: "20px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              isGapAnimationCompleted = true;
-            }
-
-            if (progress < 0.35 && isGapAnimationCompleted) {
-              gsap.to(cardContainer, {
-                gap: "0px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-1", {
-                borderRadius: "20px 0 0 20px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-2", {
-                borderRadius: "0px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-3", {
-                borderRadius: "0 20px 20px 0",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              isGapAnimationCompleted = false;
-            }
-
-            if (progress >= 0.7 && !isFlipAnimationCompleted) {
               gsap.to(".card", {
                 rotateY: 180,
                 duration: 1,
@@ -425,12 +381,19 @@ function App() {
               flipCompleteRef.current = true;
             }
 
-            if (progress < 0.7 && isFlipAnimationCompleted) {
+            if (progress < 0.4 && isFlipAnimationCompleted) {
+              // Kill stale close-animation tweens and reset overlays
+              gsap.killTweensOf(".front-detail, .front-label");
+              gsap.set(".front-detail", { opacity: 0, pointerEvents: "none" });
+              gsap.set(".front-label", { opacity: 1 });
+              expandedCardRef.current = null;
+
               gsap.to(".card", {
                 rotateY: 0,
                 duration: 1,
                 ease: "power3.out",
                 stagger: -0.15,
+                overwrite: "auto",
               });
 
               gsap.to("#card-1", {
@@ -505,23 +468,41 @@ function App() {
         />
       </div>
 
-      <Intro name="Hi, I'm Umer Qureshi!" role="" about="" />
+      <Intro
+        name="Hi, I'm Umer Qureshi!"
+        role="Computer Science @ McMaster University"
+        about=""
+      />
 
       {/* --- Sticky card section --- */}
       <section className="sticky relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] flex justify-center items-center overflow-visible">
         <div className="sticky-header absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%]">
           <h1 className="mb-[40px] relative text-center text-[3rem] font-medium leading-none [will-change:transform,opacity] translate-y-[40px] opacity-0">
-            Computer Science @ McMaster University
+            Background & Experiences
           </h1>
         </div>
 
-        <div className="card-container relative w-[90%] flex [perspective:1000px] translate-y-[40px] [will-change:width] overflow-visible">
+        <div className="card-container relative w-[75%] flex gap-5 [perspective:1000px] translate-y-[40px] overflow-visible">
           <Card
             id="card-1"
             label="Work Experience"
-            image="/thirds/1.jpg"
             bgColor="card-1"
-            roundedSide="left"
+            icon={
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                <line x1="12" y1="12" x2="12" y2="12.01" />
+              </svg>
+            }
             details={workDetails}
             onCardClick={handleCardClick}
             onClose={handleClose}
@@ -529,8 +510,22 @@ function App() {
           <Card
             id="card-2"
             label="Education"
-            image="/thirds/2.jpg"
             bgColor="card-2"
+            icon={
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" />
+              </svg>
+            }
             details={educationDetails}
             onCardClick={handleCardClick}
             onClose={handleClose}
@@ -538,9 +533,23 @@ function App() {
           <Card
             id="card-3"
             label="Projects"
-            image="/thirds/3.jpg"
             bgColor="card-3"
-            roundedSide="right"
+            icon={
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="m2 17 10 5 10-5" />
+                <path d="m2 12 10 5 10-5" />
+              </svg>
+            }
             details={projectDetails}
             onCardClick={handleCardClick}
             onClose={handleClose}

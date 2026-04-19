@@ -16,7 +16,7 @@ export default function Intro({ name, role, about }: IntroProps) {
       i++;
       setDisplayed(name.slice(0, i));
       if (i >= name.length) clearInterval(interval);
-    }, 80);
+    }, 70);
     return () => clearInterval(interval);
   }, [name]);
 
