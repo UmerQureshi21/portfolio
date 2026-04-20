@@ -51,7 +51,7 @@ const icons: Record<string, React.ReactNode> = {
 
 export default function Outro({ heading, links }: OutroProps) {
   return (
-    <section className="relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] text-center content-center">
+    <section className="relative w-full h-svh p-8 text-[var(--fg)] text-center content-center">
       <div className="flex flex-col items-center gap-8">
         <h1 className="text-[4rem] max-[1000px]:text-[3rem] font-medium leading-none w-[30%] max-[1000px]:w-full mx-auto">
           {heading}

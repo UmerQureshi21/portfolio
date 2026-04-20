@@ -7,6 +7,7 @@ import Outro from "./components/Outro";
 import Card, { type DetailEntry } from "./components/Card";
 import ThemeToggle from "./components/ThemeToggle";
 import MobileView from "./components/MobileView";
+import ParticleBackground from "./components/ParticleBackground";
 
 const workDetails: DetailEntry[] = [
   {
@@ -482,7 +483,9 @@ function App() {
   }
 
   return (
-    <div className="bg-[var(--bg)] font-[Poppins,sans-serif]">
+    <>
+    <ParticleBackground />
+    <div className="font-[Poppins,sans-serif]">
       <ThemeToggle />
 
       {/* --- Progress bar --- */}
@@ -565,6 +568,7 @@ function App() {
 
       <Outro heading="Let's Connect!" links={outroLinks} />
     </div>
+    </>
   );
 }
 

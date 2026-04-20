@@ -26,9 +26,11 @@ export default function Intro({ name, role, about }: IntroProps) {
   }, []);
 
   return (
-    <section className="relative w-full h-svh p-8 bg-[var(--bg)] text-[var(--fg)] text-center content-center">
+    <section className="relative w-full h-svh p-8 text-[var(--fg)] text-center content-center">
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-[6rem] max-[1000px]:text-[2.5rem] font-medium leading-none w-[90%] max-[1000px]:w-full mx-auto">
+        <h1
+          className="text-[6rem] max-[1000px]:text-[2.5rem] font-medium leading-none w-[90%] max-[1000px]:w-full mx-auto name-glow"
+        >
           {displayed}
           <span
             className="inline-block w-[3px] h-[0.85em] bg-[var(--fg)] ml-1 align-baseline translate-y-[0.05em]"

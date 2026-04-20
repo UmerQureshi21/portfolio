@@ -18,8 +18,26 @@
   --card-3: #c0c0c0;
 }
 
+body {
+  background-color: var(--bg);
+}
+
 .cardIcon {
   fill: var(--fg);
+}
+
+.name-glow {
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(255, 255, 255, 0.15),
+    0 0 60px rgba(255, 255, 255, 0.08);
+}
+
+.light .name-glow {
+  text-shadow:
+    0 0 10px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(0, 0, 0, 0.06),
+    0 0 60px rgba(0, 0, 0, 0.03);
 }
 
 /* GSAP pin-spacer overflow fix */
